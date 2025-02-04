@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "790833019142",
+    "project_id": "auth2-e5eb9",
+    "storage_bucket": "auth2-e5eb9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790833019142:android:b7b514d6fc70c259aa4687",
+        "android_client_info": {
+          "package_name": "com.example.mgym"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoPVINngsau8PWbtRqhdd2bf28f9b7euU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
