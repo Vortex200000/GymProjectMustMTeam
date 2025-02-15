@@ -2,7 +2,7 @@ name: mgym
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -37,6 +37,15 @@ dependencies:
   firebase_core: ^3.10.1
   cloud_firestore: ^5.6.2
   firebase_auth: ^5.4.1
+  flutter_bloc: ^9.0.0
+  bloc: ^9.0.0
+  get_it: ^8.0.3
+  get: ^4.6.6
+  equatable: ^2.0.7
+  flutter_svg: ^2.0.17
+  cached_network_image: ^3.4.1
+  path_provider: ^2.1.5
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
@@ -54,15 +63,26 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  # assets:
-  #   - images/a_dot_burr.jpeg
+  assets:
+    - assets/images/image1.jpg
+    - assets/images/image2.jpg
+    - assets/images/image3.jpg
+    - assets/images/image4.jpg
+    - assets/images/imag5.jpg
+    - assets/svg_icons/Fa-Team-Fontawesome-FontAwesome-Person-Walking.svg
+    - assets/svg_icons/nutrition-protein-icon.svg
+    - assets/svg_icons/community-svgrepo-com.svg
+    - assets/images/complete1.jpg
+    - assets/svg_icons/male-symbol-svgrepo-com.svg
+    - assets/svg_icons/female-symbol-svgrepo-com.svg
+    - assets/svg_icons/triangle-svgrepo-com.svg
+    - assets/svg_icons/triangle-filled-svgrepo-com.svg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
