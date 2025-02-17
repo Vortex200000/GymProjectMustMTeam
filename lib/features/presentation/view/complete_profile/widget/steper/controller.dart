@@ -8,7 +8,7 @@ class StepsController {
   List<Widget> get steps => _steps;
   void initializeController(PageController pageController) {
     _pageController = pageController;
-    _steps = [Step1(), Step2(), Step3(), Step4()];
+    _steps = [Step1(stepsController: this), Step2(stepsController: this), Step3(stepsController: this), Step4(stepsController: this), Step5(stepsController: this)];
   }
 
   void nextPage() {

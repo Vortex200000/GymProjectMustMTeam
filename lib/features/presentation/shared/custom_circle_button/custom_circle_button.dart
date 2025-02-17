@@ -1,42 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/helpers/screen_helpers.dart';
-import 'package:mgym/core/size_config/size_config.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton(
+class CustomCircleButton extends StatelessWidget {
+  const CustomCircleButton(
       {super.key,
       this.lapel,
       this.onTap,
       this.width = double.infinity,
       this.height = 40,
       this.backgroundColor,
-      this.radius,
+      // this.radius,
       this.padding = const EdgeInsets.all(0),
       this.isPadding = true,
       this.listOfWidget,
       this.isSadow = true,
       this.spacing,
-      this.borderColour,
-      this.borderWidth,
-      this.lapelSize,
-      this.lapelColur});
+      this.isBorder = false});
   final String? lapel;
   final VoidCallback? onTap;
   final double? width;
   final double? height;
   final Color? backgroundColor;
-  final double? radius;
+  // final double? radius;
   final EdgeInsets padding;
   final bool isPadding;
   final List<Widget>? listOfWidget;
   final bool isSadow;
   final double? spacing;
-  final Color? borderColour;
-  final double? borderWidth;
-  final double? lapelSize;
-  final Color? lapelColur;
-
+  final bool isBorder;
   // final CustomT
 
   @override
@@ -58,11 +49,12 @@ class CustomButton extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
               color: backgroundColor ?? Colors.blue[600],
+              shape: BoxShape.circle,
+              border: isBorder
+                  ? Border.all(width: 2, color: Colors.white)
+                  : const Border.fromBorderSide(BorderSide.none),
               // border: Border.all(color: Colors.transparent),
-              border: Border.all(
-                  color: borderColour ?? Colors.transparent,
-                  width: borderWidth ?? 1),
-              borderRadius: BorderRadius.circular(radius ?? 15),
+              // borderRadius: BorderRadius.circular(radius ?? 15),
               boxShadow: [
                 BoxShadow(
                     offset: const Offset(0, 5),
@@ -84,11 +76,12 @@ class CustomButton extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: listOfWidget ??
                     [
-                      Text(lapel ?? '',
-                          style: TextStyle(
-                              color: lapelColur ?? MyColours.white,
-                              fontSize: lapelSize ?? 16.rF,
-                              fontWeight: FontWeight.bold))
+                      Text(
+                        lapel ?? '',
+                        // style: customTextTheme(context)
+                        //     .bodyMedium!
+                        //     .copyWith(color: Colors.white),
+                      )
                     ],
               ),
             ),

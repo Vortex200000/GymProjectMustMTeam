@@ -51,7 +51,7 @@ class _MobileScreenState extends State<_MobileScreen> {
       children: [
         _HeaderSteps(stepsController),
         _BodySteps(stepsController),
-        _FooterSteps(stepsController),
+        // _FooterSteps(stepsController),
       ],
     );
   }

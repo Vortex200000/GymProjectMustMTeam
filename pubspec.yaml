@@ -43,10 +43,12 @@ dependencies:
   get: ^4.6.6
   equatable: ^2.0.7
   flutter_svg: ^2.0.17
-  cached_network_image: ^3.4.1
+  # cached_network_image: ^3.4.1
   path_provider: ^2.1.5
   dartz: ^0.10.1
-
+  file_picker: ^5.0.0
+  shimmer: ^3.0.0
+  cached_network_image: ^3.4.1-rc
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -83,6 +85,7 @@ flutter:
     - assets/svg_icons/female-symbol-svgrepo-com.svg
     - assets/svg_icons/triangle-svgrepo-com.svg
     - assets/svg_icons/triangle-filled-svgrepo-com.svg
+    - assets/images/blank.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
