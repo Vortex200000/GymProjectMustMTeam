@@ -28,6 +28,27 @@ class MyIcons extends ParentBath {
       "${ParentBath.parentBathIcons}/triangle-svgrepo-com.svg";
   static const String triangelFilledRounded =
       "${ParentBath.parentBathIcons}/triangle-filled-svgrepo-com.svg";
+  static const String home =
+      "${ParentBath.parentBathIcons}/home-icon-silhouette-svgrepo-com.svg";
+  static const String favorite =
+      "${ParentBath.parentBathIcons}/favorite-star-svgrepo-com.svg";
+  static const String vidList =
+      "${ParentBath.parentBathIcons}/file-video-svgrepo-com.svg";
+
+  static const String support =
+      "${ParentBath.parentBathIcons}/support-svgrepo-com.svg";
+
+  static const String profile =
+      "${ParentBath.parentBathIcons}/user-filled-svgrepo-com.svg";
+  static const String dumble =
+      "${ParentBath.parentBathIcons}/gym-svgrepo-com.svg";
+
+  static const String progressTrack =
+      "${ParentBath.parentBathIcons}/progress-report-svgrepo-com.svg";
+  static const String fire =
+      "${ParentBath.parentBathIcons}/fire-svgrepo-com.svg";
+  static const String clock =
+      "${ParentBath.parentBathIcons}/clock-svgrepo-com.svg";
 }
 
 class ConstantStrings {

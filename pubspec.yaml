@@ -49,6 +49,14 @@ dependencies:
   file_picker: ^5.0.0
   shimmer: ^3.0.0
   cached_network_image: ^3.4.1-rc
+  permission_handler: ^11.3.1
+  dio: ^5.7.0
+  # cached_video_player_plus: ^3.0.3
+  video_player: ^2.9.3
+  # video_player_android: ^2.4.12
+  device_preview: ^1.2.0
+  # better_player: ^0.0.84
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -86,6 +94,21 @@ flutter:
     - assets/svg_icons/triangle-svgrepo-com.svg
     - assets/svg_icons/triangle-filled-svgrepo-com.svg
     - assets/images/blank.png
+    - assets/svg_icons/favorite-star-svgrepo-com.svg
+    - assets/svg_icons/file-video-svgrepo-com.svg
+    - assets/svg_icons/home-icon-silhouette-svgrepo-com.svg
+    - assets/svg_icons/support-svgrepo-com.svg
+    - assets/svg_icons/user-filled-svgrepo-com.svg
+    - assets/svg_icons/gym-svgrepo-com.svg
+    - assets/svg_icons/progress-report-svgrepo-com.svg
+    - assets/images/vidCover1.jpg
+    - assets/images/coverVid2.jpg
+    - assets/images/push_up_hip_twist.jpg
+    - assets/images/supllements.jpeg
+    - assets/svg_icons/fire-svgrepo-com.svg
+    - assets/svg_icons/flame-fill-svgrepo-com.svg
+    - assets/svg_icons/clock-svgrepo-com.svg
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

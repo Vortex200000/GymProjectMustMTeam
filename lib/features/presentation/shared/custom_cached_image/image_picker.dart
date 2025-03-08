@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/size_config/size_config.dart';
+import 'package:mgym/features/presentation/shared/custom_cached_image/custom_image_widget.dart';
 // import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
 import 'package:mgym/features/presentation/shared/custom_circle_button/custom_circle_button.dart';
+import 'package:mgym/features/presentation/view/complete_profile/controller/controller.dart';
 // import 'package:mgym/features/presentation/shared/custom_cached_image/custom_image_widget.dart';
 
 class ImapgePickerWid extends StatefulWidget {
@@ -20,7 +22,8 @@ class ImapgePickerWid extends StatefulWidget {
       this.isShadow = true,
       this.buttonHight,
       this.bloc,
-      this.onImagePicked});
+      this.onImagePicked,
+      this.stepsController});
   final String imageUrl;
   final double? width;
   final double? height;
@@ -28,6 +31,7 @@ class ImapgePickerWid extends StatefulWidget {
   final bool isShadow;
   final bool? buttonHight;
   final Bloc? bloc;
+  final StepsController? stepsController;
 
   final ValueChanged<String>? onImagePicked;
 
@@ -47,34 +51,46 @@ class _ImapgePickerWidState extends State<ImapgePickerWid> {
 
   @override
   Widget build(BuildContext context) {
-    return
+    return Stack(
+      children: [
+        CustomImageWidget(
+          url: iimageUrl,
+          height: 100.rH,
+          width: 100.rW,
+          fit: BoxFit.cover,
+        ),
+        Positioned(
+          bottom: 0,
+          right: -5,
+          child: CustomCircleButton(
+            listOfWidget: [Icon(Icons.edit)],
+            width: 30.rW,
+            height: 30.rH,
+            isSadow: false,
+            backgroundColor: MyColours.onTerniary,
+            onTap: () {
+              _pickAndUploadImage().then((value) => {
+                    if (value != null) log(value.path),
+                    iimageUrl = value!.path,
+                    // userBloc(context).accountEntity = userBloc(context)
+                    //     .accountEntity
+                    //     .copyWith(profileImage: value.path),
+                    if (widget.stepsController != null)
+                      {
+                        widget.stepsController!.userEntity = widget
+                            .stepsController!.userEntity
+                            .cobyWith(photoUrl: value.path),
+                        // widget.onImagePicked!(
+                        //     widget.stepsController.userEntity.photoUrl),
 
-        // Column(
-        //   children: [
-        // CustomImageWidget(
-        //   url: iimageUrl,
-        // ),
-        Center(
-      child: CustomCircleButton(
-        listOfWidget: [Icon(Icons.edit)],
-        width: 30.rW,
-        height: 30.rH,
-        isSadow: false,
-        backgroundColor: MyColours.onTerniary,
-        onTap: () {
-          _pickAndUploadImage().then((value) => {
-                if (value != null) log(value.path),
-                iimageUrl = value!.path,
-                // userBloc(context).accountEntity = userBloc(context)
-                //     .accountEntity
-                //     .copyWith(profileImage: value.path),
-                // widget.onImagePicked!(
-                //     userBloc(context).accountEntity.profileImage)
-              });
-        },
-      ),
-      //   ),
-      // ],
+                        log(' image path ${widget.stepsController!.userEntity.photoUrl}'),
+                        setState(() {})
+                      }
+                  });
+            },
+          ),
+        ),
+      ],
     );
   }
 

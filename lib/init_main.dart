@@ -5,10 +5,12 @@ import 'package:mgym/core/locator/setup_locator.dart';
 import 'package:mgym/core/observer/bloc_observer.dart';
 import 'package:mgym/firebase_options.dart';
 
-void initMain() async {
+
+Future<void> initMain() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
+
   );
   await setUp();
   // NotificationServices notificationService = NotificationServices();

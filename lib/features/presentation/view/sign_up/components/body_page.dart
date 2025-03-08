@@ -13,6 +13,7 @@ class _BodyPageState extends State<_BodyPage> {
   final TextEditingController phoneController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final ValueNotifier<String> phone = ValueNotifier<String>('');
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +160,9 @@ class _BodyPageState extends State<_BodyPage> {
             builder: (bloc, state) => CustomButton(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
-                  log('validate');
+                  log('phonee ${phone.value}');
+                  phone.value = phoneController.text;
+
                   bloc.add(SignUpEmailAndPasswordEvent(
                       emailController.text, passwordController.text));
                 }
@@ -197,7 +200,12 @@ class _BodyPageState extends State<_BodyPage> {
           SizedBox(
             height: 20.rH,
           ),
-          const SignUpListner(),
+          ValueListenableBuilder(
+            valueListenable: phone,
+            builder: (context, value, child) => SignUpListner(
+              phoneNum: value,
+            ),
+          ),
         ],
       ),
     );

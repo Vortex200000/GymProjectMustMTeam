@@ -7,6 +7,8 @@ import 'package:mgym/features/presentation/view/login/login_layout.dart';
 import 'package:mgym/features/presentation/view/on_boarding/on_boarding_layout.dart';
 import 'package:mgym/features/presentation/view/sign_up/sign_up_layout.dart';
 import 'package:mgym/features/presentation/view/splash_screen/splash.dart';
+import 'package:mgym/features/presentation/view/trainee_view/trainee_view_layout.dart';
+import 'package:mgym/features/presentation/view/user_profile/user_profile_layout.dart';
 
 class AppRouter {
   static List<GetPage<dynamic>>? getPages = [
@@ -15,10 +17,31 @@ class AppRouter {
     getPage(Routes.splashScreen, page: () => const SplashScreen()),
     getPage(Routes.onBoarding, page: () => const OnBoardingLayout()),
     getPage(Routes.splash2, page: () => const Splash2()),
-    getPage(Routes.completeProfile, page: () => const CompleteProfileLayout()),
-    getPage(Routes.steps, page: () => const StebsLayout()),
+    getPage(Routes.completeProfile, page: () {
+      CompleteProfileLayout arg = Get.arguments;
+      return CompleteProfileLayout(
+        currentUser: arg.currentUser,
+      );
+    }),
+    getPage(Routes.steps, page: () {
+      StebsLayout arg = Get.arguments;
+      return StebsLayout(
+        userCredential: arg.userCredential,
+      );
+    }),
 
-
+    getPage(Routes.userProfile, page: () {
+      UserProfileLayout arg = Get.arguments;
+      return UserProfileLayout(
+        user: arg.user,
+      );
+    }),
+    getPage(Routes.homeRoute, page: () {
+      TrainneeView arg = Get.arguments;
+      return TrainneeView(
+        account: arg.account,
+      );
+    }),
     // getPage(Routes.signUpRoute, page: () => const SignUpLayout()),
     // getPage(Routes.homeRoute, page: () {
     //   HomeLayout arg = Get.arguments;

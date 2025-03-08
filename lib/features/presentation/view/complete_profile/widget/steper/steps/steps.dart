@@ -1,15 +1,20 @@
+import 'dart:developer';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/constants/my_constants.dart';
 import 'package:mgym/core/size_config/size_config.dart';
+import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.dart';
+import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
+import 'package:mgym/features/presentation/shared/blured_button/blurred_button.dart';
 import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
-import 'package:mgym/features/presentation/shared/custom_cached_image/custom_image_widget.dart';
 import 'package:mgym/features/presentation/shared/custom_cached_image/image_picker.dart';
 import 'package:mgym/features/presentation/shared/custom_text_form/custom_text_form.dart';
-import 'package:mgym/features/presentation/view/complete_profile/widget/steper/controller.dart';
-import 'package:mgym/features/presentation/view/complete_profile/widget/steper/steps.dart';
+import 'package:mgym/features/presentation/view/complete_profile/controller/controller.dart';
+import 'package:mgym/features/presentation/view/complete_profile/controller/steps_proviuder.dart';
 
 class Step1 extends StatelessWidget {
   Step1({super.key, this.stepsController});
@@ -143,7 +148,19 @@ class Step1 extends StatelessWidget {
                     )
                   ],
                 ),
-                FooterSteps(stepsController),
+                // FooterSteps(stepsController),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40.rH),
+                  child: BulrredButton(
+                    onTap: () {
+                      stepsController!.nextPage();
+                      stepsController!.userEntity =
+                          stepsController!.userEntity.cobyWith(gender: value);
+                    },
+                    radius: 50,
+                    lapel: 'Continue',
+                  ),
+                ),
               ],
             ),
           ),
@@ -279,7 +296,18 @@ class _Step2State extends State<Step2> {
                 ],
               ),
             ),
-            FooterSteps(widget.stepsController),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 40.rH),
+              child: BulrredButton(
+                onTap: () {
+                  widget.stepsController!.nextPage();
+                  widget.stepsController!.userEntity =
+                      widget.stepsController!.userEntity.cobyWith(age: value);
+                },
+                radius: 50,
+                lapel: 'Continue',
+              ),
+            ),
           ],
         ),
       ),
@@ -459,7 +487,19 @@ class _Step3State extends State<Step3> {
                   ),
                 ],
               ),
-              FooterSteps(widget.stepsController),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 40.rH),
+                child: BulrredButton(
+                  onTap: () {
+                    widget.stepsController!.nextPage();
+                    widget.stepsController!.userEntity = widget
+                        .stepsController!.userEntity
+                        .cobyWith(weight: value.toDouble());
+                  },
+                  radius: 50,
+                  lapel: 'Continue',
+                ),
+              ),
             ],
           ),
         ),
@@ -675,7 +715,19 @@ class _Step4State extends State<Step4> {
                     )
                   ],
                 ),
-                FooterSteps(widget.stepsController),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 40.rH),
+                  child: BulrredButton(
+                    onTap: () {
+                      widget.stepsController!.nextPage();
+                      widget.stepsController!.userEntity = widget
+                          .stepsController!.userEntity
+                          .cobyWith(hight: value.toDouble());
+                    },
+                    radius: 50,
+                    lapel: 'Continue',
+                  ),
+                ),
               ],
             ),
           ),
@@ -692,9 +744,18 @@ class _Step4State extends State<Step4> {
   }
 }
 
-class Step5 extends StatelessWidget {
+class Step5 extends StatefulWidget {
   const Step5({super.key, this.stepsController});
   final StepsController? stepsController;
+
+  @override
+  State<Step5> createState() => _Step5State();
+}
+
+class _Step5State extends State<Step5> {
+  final TextEditingController nameController = TextEditingController();
+
+  final TextEditingController nickNameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -718,15 +779,9 @@ class Step5 extends StatelessWidget {
               color: MyColours.onSecondary,
               width: SizeConfig.screenWidth,
               child: Center(
-                child: Stack(
-                  children: [
-                    CustomImageWidget(
-                        width: 100.rW,
-                        height: 100.rH,
-                        isShadow: false,
-                        url: ''),
-                    Positioned(bottom: 0, right: -5, child: ImapgePickerWid())
-                  ],
+                child: ImapgePickerWid(
+                  imageUrl: widget.stepsController!.userEntity.photoUrl,
+                  stepsController: widget.stepsController!,
                 ),
               ),
             ),
@@ -746,6 +801,7 @@ class Step5 extends StatelessWidget {
                   ),
                   CustomTextForm(
                     hinText: 'Full Name',
+                    controller: nameController,
                     border: 10,
                     boxFillColor: MyColours.white,
                   ),
@@ -758,6 +814,7 @@ class Step5 extends StatelessWidget {
                   ),
                   CustomTextForm(
                     hinText: 'Nick Name',
+                    controller: nickNameController,
                     border: 10,
                     boxFillColor: MyColours.white,
                   ),
@@ -769,7 +826,8 @@ class Step5 extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   CustomTextForm(
-                    hinText: 'Email',
+                    readOnly: true,
+                    hinText: widget.stepsController!.userCredentiall.email,
                     border: 10,
                     boxFillColor: MyColours.white,
                   ),
@@ -781,13 +839,27 @@ class Step5 extends StatelessWidget {
                         fontWeight: FontWeight.w600),
                   ),
                   CustomTextForm(
-                    hinText: 'Phone Number',
+                    readOnly: true,
+                    hinText: widget.stepsController!.userCredentiall.phoneNum,
                     border: 10,
                     boxFillColor: MyColours.white,
                   ),
                   Center(
                     child: CustomButton(
-                      onTap: stepsController!.nextPage,
+                      onTap: () {
+                        widget.stepsController!.userEntity =
+                            widget.stepsController!.userEntity.cobyWith(
+                                fullName: nameController.text,
+                                nickName: nickNameController.text,
+                                userType: 'trainee');
+                        widget.stepsController!.nextPage();
+                        userBloc(context).add(UploadImageEvent(UploadImageParam(
+                            'image',
+                            File(
+                                widget.stepsController!.userEntity.photoUrl))));
+
+                        log('${widget.stepsController!.userEntity.isSaved}');
+                      },
                       backgroundColor: MyColours.onTerniary,
                       radius: 50,
                       lapel: 'Start',
@@ -798,6 +870,9 @@ class Step5 extends StatelessWidget {
                   // FooterSteps(stepsController),
                 ],
               ),
+            ),
+            ProfileBuListner(
+              stepsController: widget.stepsController!,
             )
           ],
         ),

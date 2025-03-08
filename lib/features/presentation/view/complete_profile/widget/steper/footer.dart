@@ -1,7 +1,7 @@
 part of 'steps.dart';
 
 class FooterSteps extends StatelessWidget {
-  const FooterSteps(this.stepsController);
+  const FooterSteps(this.stepsController, {super.key});
   final StepsController? stepsController;
   @override
   Widget build(BuildContext context) {

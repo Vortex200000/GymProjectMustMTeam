@@ -3,14 +3,16 @@ import 'package:mgym/core/adaptive/adaptiv_layout_widget.dart';
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/router/controller.dart';
 import 'package:mgym/core/size_config/size_config.dart';
+import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/presentation/shared/blured_button/blurred_button.dart';
-import 'package:mgym/features/presentation/view/complete_profile/widget/steper/controller.dart';
+import 'package:mgym/features/presentation/view/complete_profile/controller/controller.dart';
 part 'body.dart';
 part 'footer.dart';
 part './header.dart';
 
 class StebsLayout extends StatelessWidget {
-  const StebsLayout({super.key});
+  final UserEntity userCredential;
+  const StebsLayout({super.key, required this.userCredential});
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +22,17 @@ class StebsLayout extends StatelessWidget {
           child: Scaffold(
         backgroundColor: MyColours.onPrimary,
         body: AdaptivLayoutWidget(
-            mobileScreem: _MobileScreen(),
-            tabletScreen: _MobileScreen(),
-            desktopScreen: _MobileScreen()),
+            mobileScreem: _MobileScreen(userCredential),
+            tabletScreen: _MobileScreen(userCredential),
+            desktopScreen: _MobileScreen(userCredential)),
       )),
     );
   }
 }
 
 class _MobileScreen extends StatefulWidget {
-  const _MobileScreen();
+  final UserEntity userCredential;
+  const _MobileScreen(this.userCredential);
 
   @override
   State<_MobileScreen> createState() => _MobileScreenState();
@@ -42,7 +45,7 @@ class _MobileScreenState extends State<_MobileScreen> {
   @override
   void initState() {
     super.initState();
-    stepsController.initializeController(pageController);
+    stepsController.initializeController(pageController, widget.userCredential);
   }
 
   @override

@@ -27,3 +27,5 @@ class SignUpFailure extends AuthState {
   final String errorMessage;
   SignUpFailure({required this.errorMessage});
 }
+
+class UserNotLoggedIn extends AuthState {}

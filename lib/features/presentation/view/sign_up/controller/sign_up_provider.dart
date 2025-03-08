@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/router/controller.dart';
+import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
+import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 import 'package:mgym/features/presentation/shared/custom_message/custom_message.dart';
 
 class SignUpProvider extends StatelessWidget {
@@ -20,8 +22,9 @@ class SignUpProvider extends StatelessWidget {
 }
 
 class SignUpListner extends StatelessWidget {
-  const SignUpListner({super.key, this.child});
+  const SignUpListner({super.key, this.child, required this.phoneNum});
   final Widget? child;
+  final String phoneNum;
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +47,19 @@ class SignUpListner extends StatelessWidget {
         }
         if (state is SignUpSuccess) {
           back;
+          userBloc(context).add(SaveUserProfileEvent(UserEntity(
+              age: 0,
+              email: state.credential.user!.email ?? '',
+              id: state.credential.user!.uid,
+              fullName: '',
+              gender: '',
+              isSaved: false,
+              hight: 0,
+              nickName: '',
+              phoneNum: phoneNum,
+              photoUrl: '',
+              userType: 'trainee',
+              weight: 0)));
           customMessage(
               context: context,
               lapel: 'Your account has been successfully created',

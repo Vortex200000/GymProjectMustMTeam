@@ -9,6 +9,6 @@ abstract class AuthMainRepo {
 
   Future<Either<Failure, UserCredential>> signUpEmailAndPassword(
       AuthParameters params);
-
-
+  Future<Either<Failure, User?>> checkIfUserLoggedIn();
+  Future<Either<Failure, void>> signOut();
 }

@@ -25,4 +25,14 @@ class AuthRebo extends AuthMainRepo {
       () => _auth.signUpWithEmailAndPassword(params),
     );
   }
+
+  @override
+  Future<Either<Failure, User?>> checkIfUserLoggedIn() async {
+    return executeOperation(() => _auth.checkIfUserLoggedIn());
+  }
+
+  @override
+  Future<Either<Failure, void>> signOut() async {
+    return executeOperation(() => _auth.signOut());
+  }
 }

@@ -27,6 +27,7 @@ class CustomTextForm extends StatefulWidget {
     this.enteredTextStyle,
     this.onChanged,
     this.onSupmit,
+    this.readOnly,
   });
   final bool isPasss;
 
@@ -51,6 +52,7 @@ class CustomTextForm extends StatefulWidget {
   final TextStyle? enteredTextStyle;
   final Function(String)? onChanged;
   final Function(String)? onSupmit;
+  final bool? readOnly;
 
   @override
   State<CustomTextForm> createState() => _CustomTextFormState();
@@ -80,6 +82,7 @@ class _CustomTextFormState extends State<CustomTextForm> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      readOnly: widget.readOnly ?? false,
       // textAlign: TextAlign.justify,
       textAlignVertical: TextAlignVertical.center,
       // style: TextStyle(height: 3.55.rH),

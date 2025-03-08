@@ -1,7 +1,8 @@
 part of '../complete_profile_layout.dart';
 
 class _FooterPage extends StatelessWidget {
-  const _FooterPage();
+  const _FooterPage(this.userCredential);
+  final UserEntity? userCredential;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,8 @@ class _FooterPage extends StatelessWidget {
               padding: const EdgeInsets.only(top: 30),
               child: BulrredButton(
                 onTap: () {
-                  Get.toNamed(Routes.steps);
+                  Get.toNamed(Routes.steps,
+                      arguments: StebsLayout(userCredential: userCredential!));
                 },
                 radius: 50,
                 lapel: 'Next',

@@ -8,6 +8,7 @@ import 'package:mgym/core/router/controller.dart';
 
 import 'package:mgym/core/size_config/size_config.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
+
 import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
 import 'package:mgym/features/presentation/shared/custom_text_form/custom_text_form.dart';
 import 'package:mgym/features/presentation/view/sign_up/controller/sign_up_provider.dart';

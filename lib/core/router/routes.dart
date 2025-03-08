@@ -8,4 +8,5 @@ class Routes {
   static const onBoarding = '/onBoarding';
   static const splash2 = '/splash2';
   static const steps = '/steps';
+  static const userProfile = '/userProfile';
 }

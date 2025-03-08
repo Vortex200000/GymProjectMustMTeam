@@ -113,19 +113,24 @@ class _MobileScreenState extends State<_MobileScreen> {
             child: Positioned(
                 top: 50.rH,
                 right: 20.rW,
-                child: Row(
-                  spacing: 10.rW,
-                  children: [
-                    Text('Skip',
-                        style: TextStyle(
-                          color: MyColours.onTerniary,
-                          fontWeight: FontWeight.bold,
-                        )),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      color: MyColours.onTerniary,
-                    )
-                  ],
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.loginRoute);
+                  },
+                  child: Row(
+                    spacing: 10.rW,
+                    children: [
+                      Text('Skip',
+                          style: TextStyle(
+                            color: MyColours.onTerniary,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Icon(
+                        Icons.arrow_forward_ios,
+                        color: MyColours.onTerniary,
+                      )
+                    ],
+                  ),
                 )),
           ),
         ),
