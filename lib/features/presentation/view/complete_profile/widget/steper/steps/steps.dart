@@ -214,101 +214,103 @@ class _Step2State extends State<Step2> {
       color: MyColours.onPrimary,
       child: ValueListenableBuilder(
         valueListenable: currentAge,
-        builder: (context, value, child) => Column(
-          spacing: 100.rH,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                "How Old Are You?",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.rH,
-                    fontWeight: FontWeight.bold),
+        builder: (context, value, child) => SingleChildScrollView(
+          child: Column(
+            spacing: 100.rH,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Text(
+                  "How Old Are You?",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.rH,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
-            ),
-            Center(
-              child: Column(
-                spacing: 20.rH,
-                children: [
-                  Text(
-                    value.toString(),
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 50.rH,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SvgPicture.asset(
-                    MyIcons.triangelFilledRounded,
-                    // ignore: deprecated_member_use
-                    color: MyColours.onTerniary,
-                    width: 20.rH,
-                    height: 20.rH,
-                  ),
-                  SizedBox(
-                    height: 120.rH,
-                    child: Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: Container(
-                              color: MyColours.onSecondary,
-                              width: SizeConfig.screenWidth, // Adjust width
-                              height: 120.rH,
-                              child: Center(
-                                  child: PageView.builder(
-                                      controller: pageControllerAge,
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount: ages.length,
-                                      itemBuilder: (context, index) => Center(
-                                            child: Text(
-                                              ages[index].toString(),
-                                              style: TextStyle(
-                                                fontSize: value == index
-                                                    ? 45.rF
-                                                    : 30.rF,
-                                                color: value == index
-                                                    ? Colors.white
-                                                    : MyColours.onPrimary,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          )))),
-                        ),
-                        IgnorePointer(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              width: 90.rH,
-                              height: 120.rH,
-                              // color: Colors.amber,
-                              decoration: const BoxDecoration(
-                                  color: Colors.transparent,
-                                  border: Border.symmetric(
-                                      vertical: BorderSide(
-                                          width: 2, color: MyColours.white))),
-                            ),
-                          ),
-                        )
-                      ],
+              Center(
+                child: Column(
+                  spacing: 20.rH,
+                  children: [
+                    Text(
+                      value.toString(),
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 50.rH,
+                          fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ],
+                    SvgPicture.asset(
+                      MyIcons.triangelFilledRounded,
+                      // ignore: deprecated_member_use
+                      color: MyColours.onTerniary,
+                      width: 20.rH,
+                      height: 20.rH,
+                    ),
+                    SizedBox(
+                      height: 120.rH,
+                      child: Stack(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Container(
+                                color: MyColours.onSecondary,
+                                width: SizeConfig.screenWidth, // Adjust width
+                                height: 120.rH,
+                                child: Center(
+                                    child: PageView.builder(
+                                        controller: pageControllerAge,
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: ages.length,
+                                        itemBuilder: (context, index) => Center(
+                                              child: Text(
+                                                ages[index].toString(),
+                                                style: TextStyle(
+                                                  fontSize: value == index
+                                                      ? 45.rF
+                                                      : 30.rF,
+                                                  color: value == index
+                                                      ? Colors.white
+                                                      : MyColours.onPrimary,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            )))),
+                          ),
+                          IgnorePointer(
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Container(
+                                width: 90.rH,
+                                height: 120.rH,
+                                // color: Colors.amber,
+                                decoration: const BoxDecoration(
+                                    color: Colors.transparent,
+                                    border: Border.symmetric(
+                                        vertical: BorderSide(
+                                            width: 2, color: MyColours.white))),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.rH),
-              child: BulrredButton(
-                onTap: () {
-                  widget.stepsController!.nextPage();
-                  widget.stepsController!.userEntity =
-                      widget.stepsController!.userEntity.cobyWith(age: value);
-                },
-                radius: 50,
-                lapel: 'Continue',
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 40.rH),
+                child: BulrredButton(
+                  onTap: () {
+                    widget.stepsController!.nextPage();
+                    widget.stepsController!.userEntity =
+                        widget.stepsController!.userEntity.cobyWith(age: value);
+                  },
+                  radius: 50,
+                  lapel: 'Continue',
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -494,7 +496,7 @@ class _Step3State extends State<Step3> {
                     widget.stepsController!.nextPage();
                     widget.stepsController!.userEntity = widget
                         .stepsController!.userEntity
-                        .cobyWith(weight: value.toDouble());
+                        .cobyWith(weight: value);
                   },
                   radius: 50,
                   lapel: 'Continue',
@@ -722,7 +724,7 @@ class _Step4State extends State<Step4> {
                       widget.stepsController!.nextPage();
                       widget.stepsController!.userEntity = widget
                           .stepsController!.userEntity
-                          .cobyWith(hight: value.toDouble());
+                          .cobyWith(hight: value);
                     },
                     radius: 50,
                     lapel: 'Continue',
@@ -740,6 +742,207 @@ class _Step4State extends State<Step4> {
       color: isCurrent ? MyColours.onTerniary : MyColours.white,
       width: isCurrent ? 70.rW : 40.rW,
       height: 2.rH,
+    );
+  }
+}
+
+enum Goals {
+  muscleGain('muscle_gain'),
+  gainWeigh('weight_gain'),
+  weightLoss('weight_loss'),
+  muscleMassGain('muscle_mass_gain'),
+  shapeBody('shape_body');
+
+  final String type;
+  const Goals(this.type);
+}
+
+class Step6 extends StatefulWidget {
+  const Step6({super.key, this.stepsController});
+  final StepsController? stepsController;
+
+  @override
+  State<Step6> createState() => _Step6State();
+}
+
+class _Step6State extends State<Step6> {
+  // final TextEditingController nameController = TextEditingController();
+
+  // final TextEditingController nickNameController = TextEditingController();
+  ValueNotifier<String> goal = ValueNotifier<String>(Goals.muscleGain.type);
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: goal,
+      builder: (context, value, child) => Container(
+        decoration: BoxDecoration(
+          color: MyColours.onPrimary,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(height: 50),
+              const Text(
+                "What Is Your Goal",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 20.rH),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  spacing: 10.rH,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(20),
+                      width: SizeConfig.screenWidth,
+                      color: MyColours.onSecondary,
+                      child: Column(
+                        spacing: 30.rH,
+                        children: [
+                          _buildGoalContainer(
+                            'Lose Weight',
+                            (val) {
+                              value = val;
+                            },
+                            Goals.weightLoss.type,
+                          ),
+                          _buildGoalContainer(
+                            'Gain Weight',
+                            (val) {
+                              value = val;
+                            },
+                            Goals.gainWeigh.type,
+                          ),
+                          _buildGoalContainer(
+                            'Muscle Mass Gain',
+                            (val) {
+                              value = val;
+                            },
+                            Goals.muscleMassGain.type,
+                          ),
+                          _buildGoalContainer(
+                            'Shape Body',
+                            (val) {
+                              value = val;
+                            },
+                            Goals.shapeBody.type,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 40.rH),
+                      child: BulrredButton(
+                        onTap: () {
+                          widget.stepsController!.nextPage();
+                          widget.stepsController!.userEntity = widget
+                              .stepsController!.userEntity
+                              .cobyWith(goal: value);
+                          log(value);
+                        },
+                        radius: 50,
+                        lapel: 'Continue',
+                      ),
+                    ),
+                    // Text(
+                    //   'Full Name',
+                    //   style: TextStyle(
+                    //       color: MyColours.onSecondary,
+                    //       fontSize: 16.rF,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
+                    // CustomTextForm(
+                    //   hinText: 'Full Name',
+                    //   controller: nameController,
+                    //   border: 10,
+                    //   boxFillColor: MyColours.white,
+                    // ),
+                    // Text(
+                    //   'Nick Name',
+                    //   style: TextStyle(
+                    //       color: MyColours.onSecondary,
+                    //       fontSize: 16.rF,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
+                    // CustomTextForm(
+                    //   hinText: 'Nick Name',
+                    //   controller: nickNameController,
+                    //   border: 10,
+                    //   boxFillColor: MyColours.white,
+                    // ),
+                    // Text(
+                    //   'Email',
+                    //   style: TextStyle(
+                    //       color: MyColours.onSecondary,
+                    //       fontSize: 16.rF,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
+                    // CustomTextForm(
+                    //   readOnly: true,
+                    //   hinText: widget.stepsController!.userCredentiall.email,
+                    //   border: 10,
+                    //   boxFillColor: MyColours.white,
+                    // ),
+                    // Text(
+                    //   'Phone Number',
+                    //   style: TextStyle(
+                    //       color: MyColours.onSecondary,
+                    //       fontSize: 16.rF,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
+                    // CustomTextForm(
+                    //   readOnly: true,
+                    //   hinText: widget.stepsController!.userCredentiall.phoneNum,
+                    //   border: 10,
+                    //   boxFillColor: MyColours.white,
+                    // ),
+
+                    // FooterSteps(stepsController),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildGoalContainer(
+      String val, Function(String val) onTap, String value) {
+    return InkWell(
+      onTap: () {
+        onTap(value);
+      },
+      child: Container(
+        // width: SizeConfig.screenWidth * .3,
+        padding: EdgeInsets.only(left: 20, right: 8, top: 8, bottom: 8),
+        decoration: BoxDecoration(
+            color: MyColours.white,
+            borderRadius: BorderRadius.all(Radius.circular(50))),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              val,
+              style: TextStyle(color: MyColours.onPrimary, fontSize: 16.rF),
+            ),
+            Container(
+              width: 50,
+              height: 50,
+              decoration: BoxDecoration(
+                  border: Border.all(color: MyColours.onPrimary, width: 2),
+                  shape: BoxShape.circle,
+                  color: Colors.white),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

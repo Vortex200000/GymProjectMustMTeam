@@ -6,15 +6,17 @@ class UserEntity extends Equatable {
   final String email;
   final String nickName;
   final String phoneNum;
-  final double hight;
-  final double weight;
+  final int hight;
+  final int weight;
   final int age;
   final String gender;
   final String photoUrl;
   final bool isSaved;
   final String userType;
   final String id;
+  final String goal;
   const UserEntity({
+    required this.goal,
     required this.id,
     required this.photoUrl,
     required this.isSaved,
@@ -34,13 +36,14 @@ class UserEntity extends Equatable {
       String? email,
       String? nickName,
       String? phoneNum,
-      double? hight,
-      double? weight,
+      int? hight,
+      int? weight,
       int? age,
       String? gender,
       String? photoUrl,
       bool? isSaved,
       String? userType,
+      String? goal,
       String? id}) {
     return UserEntity(
       photoUrl: photoUrl ?? this.photoUrl,
@@ -55,6 +58,7 @@ class UserEntity extends Equatable {
       isSaved: isSaved ?? this.isSaved,
       userType: userType ?? this.userType,
       id: id ?? this.id,
+      goal: goal ?? this.goal,
     );
   }
 
@@ -70,7 +74,8 @@ class UserEntity extends Equatable {
       photoUrl: photoUrl,
       isSaved: isSaved,
       userType: userType,
-      id: id);
+      id: id,
+      goal: goal);
 
   @override
   List<Object?> get props => [
@@ -82,5 +87,7 @@ class UserEntity extends Equatable {
         weight,
         age,
         gender,
+        goal,
+        id
       ];
 }

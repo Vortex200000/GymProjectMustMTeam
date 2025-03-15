@@ -10,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mgym/core/services/api_service.dart';
 import 'package:mgym/core/services/firebase_services.dart';
+import 'package:mgym/core/services/nuteration_service.dart';
 import 'package:mgym/features/data/data_source/remote_data/auth_remote_data/auth_remote_data.dart';
 import 'package:mgym/features/data/data_source/remote_data/user_remote_data/user_remote_data.dart';
 import 'package:mgym/features/data/reposetories/auth_rebo.dart';
@@ -109,8 +110,10 @@ Future<void> setUp() async {
         sl(),
       ));
   sl.registerSingleton<DioServcies>(DioServcies());
+  sl.registerSingleton<NutirationService>(NutirationService());
+
   sl.registerLazySingleton<UserRemoteData>(
-      () => UserFireBase(sl(), sl(), sl()));
+      () => UserFireBase(sl(), sl(), sl(), sl()));
   sl.registerSingleton<FireBaseService>(FireBaseService());
   sl.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
   sl.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);

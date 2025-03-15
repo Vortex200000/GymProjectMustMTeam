@@ -10,7 +10,7 @@ abstract class UserBaseRepo {
   Future<Either<Failure, UserEntity>> saveUserProfile(UserEntity account);
   Future<Either<Failure, void>> updateUserProfSave();
   Future<Either<Failure, UserEntity>> getCurrentUserInfo();
-  Future<Either<Failure, void>> updateUserProfileMap(Map<String, dynamic> map);
+  Future<Either<Failure, UserEntity>> updateUserProfileMap(Map<String, dynamic> map);
   // Future<Either<Failure, AccountEntity>> getUserProfileL();
   // Future<Either<Failure, DataModel>> uploadUserImage(UploadImageParam param);
   Future<Either<Failure, List<UserEntity>>> getAllUsers();

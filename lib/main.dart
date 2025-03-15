@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:mgym/all_providers.dart';
+import 'package:mgym/core/locator/setup_locator.dart';
 import 'package:mgym/core/router/app_router.dart';
 import 'package:mgym/core/router/routes.dart';
 import 'package:mgym/core/size_config/size_config.dart';
+import 'package:mgym/features/data/data_source/remote_data/user_remote_data/user_remote_data.dart';
 import 'package:mgym/init_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -30,6 +32,7 @@ class _MyAppState extends State<MyApp> {
     super.initState();
 
     requestPermissions();
+    locator<UserRemoteData>().getUserMealPlansAccToGoal();
   }
 
   void requestPermissions() async {

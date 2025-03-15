@@ -54,20 +54,100 @@ class _HeaderH extends StatelessWidget {
                     fontSize: 30.rF,
                     fontWeight: FontWeight.bold),
               ),
-              InkWell(
-                onTap: () {
-                  Get.toNamed(Routes.userProfile,
-                      arguments: UserProfileLayout(
-                        user: account,
-                      ));
-                },
-                child: SvgPicture.asset(
-                  MyIcons.profile,
-                  height: 30,
-                  width: 30,
-                  // ignore: deprecated_member_use
-                  color: const Color.fromARGB(255, 135, 112, 228),
-                ),
+              Row(
+                spacing: 10,
+                children: [
+                  InkWell(
+                      onTap: () {
+                        // Get.offAll(
+                        //   Routes.loginRoute,
+                        // );
+                        showDialog(
+                            context: context,
+                            builder: (context) => Dialog(
+                                  child: Container(
+                                    // padding: const EdgeInsets.all(10),
+                                    width: SizeConfig.screenWidth * .5,
+                                    height: SizeConfig.screenWidth * .3,
+                                    decoration: BoxDecoration(
+                                        color: MyColours.onPrimary,
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(20))),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'You Sure You Want',
+                                          style:
+                                              TextStyle(color: MyColours.white),
+                                        ),
+                                        SizedBox(
+                                          height: 10.rH,
+                                        ),
+                                        Text(
+                                          'To Sign Out ',
+                                          style:
+                                              TextStyle(color: MyColours.white),
+                                        ),
+                                        SizedBox(
+                                          height: 10.rH,
+                                        ),
+                                        Expanded(
+                                          child: Row(
+                                            children: [
+                                              Expanded(
+                                                  child: CustomButton(
+                                                onTap: () {
+                                                  authBloc(context)
+                                                      .add(SignOutEvent());
+                                                  Get.offAllNamed(
+                                                      Routes.loginRoute);
+                                                },
+                                                lapel: 'Yes',
+                                                lapelColur: MyColours.black,
+                                                backgroundColor:
+                                                    MyColours.onTerniary,
+                                              )),
+                                              Expanded(
+                                                  child: CustomButton(
+                                                onTap: () {
+                                                  back;
+                                                },
+                                                lapel: 'No',
+                                                backgroundColor:
+                                                    MyColours.onSecondary,
+                                              )),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                      },
+                      child: Icon(
+                        Icons.logout,
+                        color: const Color.fromARGB(255, 135, 112, 228),
+                      )),
+                  InkWell(
+                    onTap: () {
+                      Get.toNamed(Routes.userProfile,
+                          arguments: UserProfileLayout(
+                            user: account,
+                          ));
+                    },
+                    child: SvgPicture.asset(
+                      MyIcons.profile,
+                      height: 30,
+                      width: 30,
+                      // ignore: deprecated_member_use
+                      color: const Color.fromARGB(255, 135, 112, 228),
+                    ),
+                  ),
+                ],
               )
             ],
           ),

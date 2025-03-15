@@ -77,7 +77,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(SaveUserProfileErr(errorMessage: fail.message));
       },
       (success) {
-        // accountEntity = success;
+        accountEntity = success;
         emit(SaveUserProfileSuccess(entity: success));
       },
     );
@@ -150,7 +150,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         emit(UpdateUserProfileMapErr(errorMessage: fail.message));
       },
       (success) {
-        emit(UpdateUserProfileMapSuccess());
+        accountEntity = success;
+        emit(UpdateUserProfileMapSuccess(success));
       },
     );
   }

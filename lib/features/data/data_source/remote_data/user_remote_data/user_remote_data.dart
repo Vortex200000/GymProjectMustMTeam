@@ -4,8 +4,10 @@ import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mgym/core/services/api_service.dart';
 import 'package:mgym/core/services/firebase_services.dart';
+import 'package:mgym/core/services/nuteration_service.dart';
 import 'package:mgym/features/data/models/article_model.dart';
 import 'package:mgym/features/data/models/data_model.dart';
+import 'package:mgym/features/data/models/meal_plan_model.dart';
 import 'package:mgym/features/data/models/user_model.dart';
 import 'package:mgym/features/data/models/video_model.dart';
 import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.dart';
@@ -16,7 +18,7 @@ import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.da
 abstract class UserRemoteData {
   Future<UserModel> saveUserProfile(UserModel accountModel);
   Future<UserModel> getUserProfileInfo(String id);
-  Future<void> updateUserProfileMap(Map<String, dynamic> map);
+  Future<UserModel> updateUserProfileMap(Map<String, dynamic> map);
   Future<UserModel> getCurrnetUserInfo();
   Future<void> updateUserProfileSave();
   // Future<String> uploadUserImage(File imageFile);
@@ -28,6 +30,7 @@ abstract class UserRemoteData {
   Future<void> updateVidFav(bool val, String name);
   Future<bool> updateArticleFav(bool val, String name);
   Future<List<dynamic>> getFavorites();
+  Future<List<MealPlanModel>> getUserMealPlansAccToGoal();
   // Future<void> updatUserStatus(bool isOnline);
   // Stream<bool> getUserStatus(String uid);
   // Stream<int?> getUserLasSeen(String uid);
@@ -39,12 +42,14 @@ class UserFireBase extends UserRemoteData {
     this._auth,
     this._fireStoreService,
     this._dioServcies,
+    this._nutirationService,
     // this._dioServcies,
   );
   final FirebaseAuth _auth;
   // final FirebaseFirestore _fireStore;
   final FireBaseService _fireStoreService;
   final DioServcies _dioServcies;
+  final NutirationService _nutirationService;
 
   // final FirebaseStorage _fireBaseStorage = FirebaseStorage.instance;
   // final DioServcies _dioServcies;
@@ -70,11 +75,12 @@ class UserFireBase extends UserRemoteData {
   //   AccountKeys.isSaved : state
   // };
   @override
-  Future<void> updateUserProfileMap(Map<String, dynamic> map) async {
-    log('id =============>${_auth.currentUser!.uid}');
-    return await _fireStoreService.accountRef
-        .doc(_auth.currentUser!.uid)
-        .update(map);
+  Future<UserModel> updateUserProfileMap(Map<String, dynamic> map) async {
+    // log('id =============>${_auth.currentUser!.uid}');
+    await _fireStoreService.accountRef.doc(_auth.currentUser!.uid).update(map);
+    final result =
+        await _fireStoreService.accountRef.doc(_auth.currentUser!.uid).get();
+    return UserModel.fromMap(result.data() ?? {});
   }
 
   Future<void> updateAnyUserProfileMap(Map<String, dynamic> map) async {
@@ -232,6 +238,69 @@ class UserFireBase extends UserRemoteData {
     log(favorites.toString());
     return favorites;
   }
+
+  @override
+  Future<List<MealPlanModel>> getUserMealPlansAccToGoal() async {
+    // log(_nutirationService.calculateBMR(85, 70, 28, 'male').toString());
+    //first we get the current user data
+    UserModel user = await _fireStoreService.accountRef
+        .doc(_auth.currentUser!.uid)
+        .get()
+        .then(
+      (value) {
+        return UserModel.fromMap(value.data() ?? {});
+      },
+    );
+    // next we calculate the bmr
+    double bmr = _nutirationService.calculateBMR(
+        user.weight.toDouble(), user.hight.toDouble(), user.age, user.gender);
+    log(bmr.toString());
+    // then we calculate the tdee
+    double tdee = _nutirationService.calculateTDEE(bmr, 'moderate');
+    log(tdee.toString());
+    // Step 3: Adjust Calories Based on Goal
+    double adjustedCalories =
+        _nutirationService.adjustCaloriesForGoal(tdee, user.goal);
+    log(adjustedCalories.toString());
+
+    Map<String, double> macros = _nutirationService.calculateMacros(
+        adjustedCalories, user.weight.toDouble(), user.goal);
+    log(macros.toString());
+
+    final result = await _fireStoreService.mealRef.get();
+
+    final List<MealPlanModel> dataMeals = result.docs
+        .map(
+          (e) => MealPlanModel.fromMap(e.data()),
+        )
+        .toList();
+
+    final List<MealPlanModel> userMeals = getMealPlanSUser(
+        macros['protein']!, macros['fats']!, macros['carbs']!, dataMeals);
+    log(userMeals.toString());
+
+    return userMeals;
+  }
+
+  List<MealPlanModel> getMealPlanSUser(
+      double protein, double fats, double carbs, List<MealPlanModel> meals) {
+    return meals
+        .where(
+          (meal) =>
+              meal.protein >= (protein * 0.9) &&
+              meal.protein <= (protein * 1.1) &&
+              meal.fats >= (fats * 0.9) &&
+              meal.fats <= (fats * 1.1) &&
+              meal.carbs >= (carbs * 0.9) &&
+              meal.carbs <= (carbs * 1.1),
+        )
+        .toList();
+  }
+
+  // meal.protein >= (protein * 0.9) && meal.protein <= (protein * 1.1) &&
+  // meal.fats >= (fats * 0.9) && meal.fats <= (fats * 1.1) &&
+  // meal.carbs >= (carbs * 0.9) && meal.carbs <= (carbs * 1.1)
+
   // @override
   // Future<void> updatUserStatus(bool isOnline) async {
   //   if (_auth.currentUser != null) {

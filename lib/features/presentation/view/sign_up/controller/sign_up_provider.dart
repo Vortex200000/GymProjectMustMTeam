@@ -59,7 +59,8 @@ class SignUpListner extends StatelessWidget {
               phoneNum: phoneNum,
               photoUrl: '',
               userType: 'trainee',
-              weight: 0)));
+              weight: 0,
+              goal: '')));
           customMessage(
               context: context,
               lapel: 'Your account has been successfully created',

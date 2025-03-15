@@ -41,7 +41,7 @@ class _VideossState extends State<Videoss> {
                       ? _VidoesList(entityList: state.videos)
                       : state is GetAllVideosFailure
                           ? Text('Error')
-                          : const SizedBox(),
+                          : const SizedBox.shrink(),
                 ),
               );
             },

@@ -20,23 +20,104 @@ class _MobileScreenState extends State<_MobileScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SizedBox(
-            height: size,
-            child: Stack(
-              children: [
-                _Header(
-                  widget.user,
-                  (p0) => updateSize(p0),
-                ),
-              ],
+      child: TrainerProfileProvider(
+        onSuccess: (entity) => Column(
+          children: [
+            SizedBox(
+              height: size,
+              child: Stack(
+                children: [
+                  _Header(
+                    entity,
+                    (p0) => updateSize(p0),
+                  ),
+                ],
+              ),
             ),
-          ),
-          StaggeredSlideIn(
-              direction: SlideDirection.start, child: _Body(widget.user!))
-        ],
+            StaggeredSlideIn(
+                direction: SlideDirection.start, child: _Body(entity)),
+            // TraineeProfileListenr()
+          ],
+        ),
+        onLoading: () => SizedBox.shrink(),
+        onError: () => Text('Error'),
+        onotialW: () => Column(
+          children: [
+            SizedBox(
+              height: size,
+              child: Stack(
+                children: [
+                  _Header(
+                    widget.user,
+                    (p0) => updateSize(p0),
+                  ),
+                ],
+              ),
+            ),
+            StaggeredSlideIn(
+                direction: SlideDirection.start, child: _Body(widget.user!)),
+            // TraineeProfileListenr()
+          ],
+        ),
       ),
+      // BlocBuilder<UserBloc, UserState>(
+      //   builder: (context, state) {
+      //     return AnimatedSwitcher(
+      //       duration: Duration(milliseconds: 200),
+      //       transitionBuilder: (child, animation) {
+      //         return FadeTransition(
+      //           opacity: animation,
+      //           child: child,
+      //         );
+      //       },
+      //       child: state is UpdateUserProfileMapLoading
+      //           ? Center(
+      //               child: CircularProgressIndicator(
+      //                 color: MyColours.onTerniary,
+      //               ),
+      //             )
+      //           : state is UpdateUserProfileMapSuccess
+      //               ? Column(
+      //                   children: [
+      //                     SizedBox(
+      //                       height: size,
+      //                       child: Stack(
+      //                         children: [
+      //                           _Header(
+      //                             state.entity,
+      //                             (p0) => updateSize(p0),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                     StaggeredSlideIn(
+      //                         direction: SlideDirection.start,
+      //                         child: _Body(state.entity)),
+      //                     TraineeProfileListenr()
+      //                   ],
+      //                 )
+      //               : Column(
+      //                   children: [
+      //                     SizedBox(
+      //                       height: size,
+      //                       child: Stack(
+      //                         children: [
+      //                           _Header(
+      //                             widget.user,
+      //                             (p0) => updateSize(p0),
+      //                           ),
+      //                         ],
+      //                       ),
+      //                     ),
+      //                     StaggeredSlideIn(
+      //                         direction: SlideDirection.start,
+      //                         child: _Body(widget.user!)),
+      //                     TraineeProfileListenr()
+      //                   ],
+      //                 ),
+      //     );
+      //   },
+      // ),
     );
   }
 }
@@ -50,18 +131,25 @@ class _Body extends StatefulWidget {
 }
 
 class _BodyState extends State<_Body> {
+  TrainerProfileController controller = TrainerProfileController();
+  @override
+  void initState() {
+    super.initState();
+    controller.initialtizeTrainerProf(userBloc(context).accountEntity);
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController =
-        TextEditingController(text: widget.user.email);
-    TextEditingController nameController =
-        TextEditingController(text: widget.user.fullName);
-    TextEditingController phoneController =
-        TextEditingController(text: widget.user.phoneNum);
-    TextEditingController weightController =
-        TextEditingController(text: '${widget.user.weight.toString()} Kg');
-    TextEditingController hightontroller =
-        TextEditingController(text: '${widget.user.hight.toString()} Cm');
+    // TextEditingController emailController =
+    //     TextEditingController(text: widget.user.email);
+    // TextEditingController nameController =
+    //     TextEditingController(text: widget.user.fullName);
+    // TextEditingController phoneController =
+    //     TextEditingController(text: widget.user.phoneNum);
+    // TextEditingController weightController =
+    //     TextEditingController(text: '${widget.user.weight.toString()} Kg');
+    // TextEditingController hightontroller =
+    //     TextEditingController(text: '${widget.user.hight.toString()} Cm');
     return SizedBox(
       width: SizeConfig.screenWidth,
       child: Padding(
@@ -75,35 +163,36 @@ class _BodyState extends State<_Body> {
               style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
-              controller: nameController,
+              controller: controller.nameController,
             ),
             Text(
               'Email',
               style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
-              controller: emailController,
+              readOnly: true,
+              controller: controller.emailController,
             ),
             Text(
               'Mopile Number',
               style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
-              controller: phoneController,
+              controller: controller.phoneController,
             ),
             Text(
               'Weight',
               style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
-              controller: weightController,
+              controller: controller.weightController,
             ),
             Text(
               'Hight',
               style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
-              controller: hightontroller,
+              controller: controller.hightontroller,
             ),
             SizedBox(
               height: 10.rH,
@@ -114,8 +203,9 @@ class _BodyState extends State<_Body> {
                 backgroundColor: MyColours.onTerniary,
                 lapelColur: MyColours.onPrimary,
                 radius: 50,
-                width: SizeConfig.screenWidth * 0.3,
-                onTap: () {},
+                onTap: () {
+                  controller.updateUserProfile(context);
+                },
               ),
             )
           ],
@@ -217,7 +307,7 @@ class _HeaderState extends State<_Header> {
                   ),
 
                   Text(
-                    '${widget.user!.fullName} ${widget.user!.nickName}',
+                    userBloc(context).accountEntity.fullName,
                     style: TextStyle(
                         fontSize: 25.rF,
                         fontWeight: FontWeight.bold,
@@ -231,7 +321,7 @@ class _HeaderState extends State<_Header> {
                         color: Colors.white),
                   ),
                   Text(
-                    'Gender: ${widget.user!.gender}'
+                    'Gender: ${userBloc(context).accountEntity.gender}'
                     // user!.email,
                     ,
                     style: TextStyle(
@@ -250,7 +340,7 @@ class _HeaderState extends State<_Header> {
           left: 0,
           top: mainContainerHignt - secondryContainerHignt * 0.5,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: StaggeredSlideIn(
               direction: SlideDirection.end,
               child: Container(
@@ -265,15 +355,18 @@ class _HeaderState extends State<_Header> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            '${widget.user!.weight.toString()} Kg',
-                            style: TextStyle(color: MyColours.white),
-                          ),
-                          Text('Weight',
-                              style: TextStyle(color: MyColours.white))
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              '${userBloc(context).accountEntity.weight.toString()} Kg',
+                              style: TextStyle(color: MyColours.white),
+                            ),
+                            Text('Weight',
+                                style: TextStyle(color: MyColours.white))
+                          ],
+                        ),
                       ),
                       Container(
                         width: 2,
@@ -284,7 +377,8 @@ class _HeaderState extends State<_Header> {
                         padding: const EdgeInsets.symmetric(horizontal: 20.0),
                         child: Column(
                           children: [
-                            Text('${widget.user!.age.toString()} Kg',
+                            Text(
+                                '${userBloc(context).accountEntity.age.toString()} Kg',
                                 style: TextStyle(color: MyColours.white)),
                             Text('Years Old',
                                 style: TextStyle(color: MyColours.white))
@@ -296,13 +390,17 @@ class _HeaderState extends State<_Header> {
                         height: 50.rH,
                         color: MyColours.white,
                       ),
-                      Column(
-                        children: [
-                          Text('${widget.user!.hight.toString()} Cm',
-                              style: TextStyle(color: MyColours.white)),
-                          Text('Hight',
-                              style: TextStyle(color: MyColours.white))
-                        ],
+                      Padding(
+                        padding: EdgeInsets.only(left: 8),
+                        child: Column(
+                          children: [
+                            Text(
+                                '${userBloc(context).accountEntity.hight.toString()} Cm',
+                                style: TextStyle(color: MyColours.white)),
+                            Text('Hight',
+                                style: TextStyle(color: MyColours.white))
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -310,7 +408,7 @@ class _HeaderState extends State<_Header> {
               ),
             ),
           ),
-        )
+        ),
       ],
     );
   }

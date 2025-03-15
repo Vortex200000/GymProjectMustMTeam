@@ -51,7 +51,10 @@ class UploadUserImageErr extends UserState {
 
 class UpdateUserProfileMapLoading extends UserState {}
 
-class UpdateUserProfileMapSuccess extends UserState {}
+class UpdateUserProfileMapSuccess extends UserState {
+  final UserEntity entity;
+  UpdateUserProfileMapSuccess(this.entity);
+}
 
 class UpdateUserProfileMapErr extends UserState {
   final String errorMessage;

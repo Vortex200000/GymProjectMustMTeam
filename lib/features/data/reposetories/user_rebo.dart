@@ -47,7 +47,7 @@ class UserRepo extends UserBaseRepo {
   }
 
   @override
-  Future<Either<Failure, void>> updateUserProfileMap(Map<String, dynamic> map) {
+  Future<Either<Failure, UserEntity>> updateUserProfileMap(Map<String, dynamic> map) {
     return executeOperation(() => _userRemoteData.updateUserProfileMap(map));
   }
 

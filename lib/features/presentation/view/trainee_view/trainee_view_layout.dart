@@ -8,13 +8,16 @@ import 'package:mgym/core/adaptive/adaptiv_layout_widget.dart';
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/constants/my_constants.dart';
 import 'package:mgym/core/locator/setup_locator.dart';
+import 'package:mgym/core/router/controller.dart';
 import 'package:mgym/core/router/routes.dart';
 import 'package:mgym/core/size_config/size_config.dart';
 import 'package:mgym/features/domain/entities/article_entity.dart';
 import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/domain/entities/video_entity.dart';
+import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
 import 'package:mgym/features/presentation/controllers/bloc/combonents_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
+import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
 import 'package:mgym/features/presentation/shared/slide_transition/slide.dart';
 
 import 'package:mgym/features/presentation/view/trainee_view/widgets/articles_card.dart';

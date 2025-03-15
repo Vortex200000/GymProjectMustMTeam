@@ -13,7 +13,8 @@ class UserModel extends UserEntity {
       required super.photoUrl,
       required super.isSaved,
       required super.userType,
-      required super.id});
+      required super.id,
+      required super.goal});
 
   Map<String, dynamic> toMap() => {
         UserKeys.id: id,
@@ -28,6 +29,7 @@ class UserModel extends UserEntity {
         UserKeys.weight: weight,
         UserKeys.isSaved: isSaved,
         UserKeys.userType: userType,
+        UserKeys.goal: goal
       };
 
   factory UserModel.fromMap(Map<String, dynamic> map) => UserModel(
@@ -43,6 +45,7 @@ class UserModel extends UserEntity {
         isSaved: map[UserKeys.isSaved],
         userType: map[UserKeys.userType],
         photoUrl: map[UserKeys.photoUrl],
+        goal: map[UserKeys.goal],
       );
   // factory toMap(UserModel model) => {};
 }
@@ -60,5 +63,6 @@ class UserKeys {
   static const nickName = 'nickName';
   static const age = 'age';
   static const gender = 'gender';
-  static const model = 'model';
+
+  static const goal = 'model';
 }
