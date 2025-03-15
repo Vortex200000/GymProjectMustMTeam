@@ -15,7 +15,7 @@ import 'package:mgym/features/domain/entities/article_entity.dart';
 import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/domain/entities/video_entity.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
-import 'package:mgym/features/presentation/controllers/bloc/combonents_bloc.dart';
+import 'package:mgym/features/presentation/controllers/combonents_bloc/combonents_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
 import 'package:mgym/features/presentation/shared/slide_transition/slide.dart';
