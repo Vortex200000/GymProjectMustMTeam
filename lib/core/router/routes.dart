@@ -9,4 +9,9 @@ class Routes {
   static const splash2 = '/splash2';
   static const steps = '/steps';
   static const userProfile = '/userProfile';
+  static const nutration = '/mutration';
+  static const recipes = '/recipes';
+  static const progress = '/progress';
+  static const community = '/community';
+  static const training = '/training';
 }

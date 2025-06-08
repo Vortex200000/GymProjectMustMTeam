@@ -11,11 +11,11 @@ class _MobileScreen extends StatelessWidget {
           SizedBox(
             height: 50.rH,
           ),
-          _HeaderPage(),
+          const _HeaderPage(),
           SizedBox(
             height: 20.rH,
           ),
-          _BodyPage(),
+          const _BodyPage(),
         ],
       ),
     );

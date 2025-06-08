@@ -40,7 +40,7 @@ class SignInListner extends StatelessWidget {
             if (state is SignInLoading) {
               showDialog(
                 context: context,
-                builder: (context) => Center(
+                builder: (context) => const Center(
                   child: CircularProgressIndicator(
                     color: MyColours.onTerniary,
                   ),

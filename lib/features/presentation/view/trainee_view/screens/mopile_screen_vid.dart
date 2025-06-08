@@ -5,8 +5,8 @@ class _MopileScreenVad extends StatelessWidget {
   final UserEntity? account;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
       child: Column(
         children: [
           // Text(
@@ -63,7 +63,7 @@ class _BodyVidState extends State<_BodyVid> {
       builder: (context, state) {
         return Expanded(
           child: AnimatedSwitcher(
-            duration: Duration(microseconds: 200),
+            duration: const Duration(microseconds: 200),
             transitionBuilder: (child, animation) {
               return FadeTransition(
                 opacity: animation,
@@ -71,12 +71,12 @@ class _BodyVidState extends State<_BodyVid> {
               );
             },
             child: state is GetAllVideosLoading
-                ? SizedBox.shrink()
+                ? const SizedBox.shrink()
                 : state is GetAllVideosLoaded
                     ? _VidListV(favorites: state.videos)
                     : state is GetAllFavoritesFailure
-                        ? Text('Error')
-                        : SizedBox.shrink(),
+                        ? const Text('Error')
+                        : const SizedBox.shrink(),
           ),
         );
       },

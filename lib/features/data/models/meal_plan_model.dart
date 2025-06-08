@@ -9,7 +9,8 @@ class MealPlanModel extends MealBlanEntity {
       required super.fats,
       required super.carbs,
       required super.photoPath,
-      required super.ingrediants});
+      required super.ingrediants,
+      required super.id});
 
   Map<String, dynamic> toMap() => {
         MealPlanKeys.name: name,
@@ -34,6 +35,7 @@ class MealPlanModel extends MealBlanEntity {
                 ?.map((e) => e.toString())
                 .toList() ??
             [],
+        id: map[MealPlanKeys.id],
       );
 }
 
@@ -46,4 +48,5 @@ class MealPlanKeys {
   static const String carbs = 'carbs';
   static const String photoPath = 'photo_path';
   static const String ingrediants = 'ingredients';
+  static const String id = 'id';
 }

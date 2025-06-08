@@ -23,7 +23,7 @@ class _MyVideoPlayerState extends State<MyVideoPlayer> {
         appBar: AppBar(
           surfaceTintColor: Colors.white,
           backgroundColor: Colors.black,
-          iconTheme: IconThemeData(color: Colors.white),
+          iconTheme: const IconThemeData(color: Colors.white),
         ),
         body: AdaptivLayoutWidget(
             mobileScreem: _VidPl(
@@ -53,7 +53,7 @@ class __VidPlState extends State<_VidPl> {
   late VideoPlayerController controller;
 
   final ValueNotifier<bool> isPlaying = ValueNotifier<bool>(true);
-  final ValueNotifier<Duration> dur = ValueNotifier<Duration>(Duration());
+  final ValueNotifier<Duration> dur = ValueNotifier<Duration>(const Duration());
 
   @override
   void initState() {
@@ -124,8 +124,8 @@ class __VidPlState extends State<_VidPl> {
                               aspectRatio: controller.value.aspectRatio,
                               child: VideoPlayer(controller),
                             )
-                          : Center(
-                              child: const CircularProgressIndicator(
+                          : const Center(
+                              child: CircularProgressIndicator(
                               color: MyColours.white,
                             )),
                     ),
@@ -135,7 +135,7 @@ class __VidPlState extends State<_VidPl> {
                       valueListenable: dur,
                       builder: (context, value, child) => Text(
                         value.toString(),
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     )
                   ],
@@ -152,7 +152,7 @@ class __VidPlState extends State<_VidPl> {
               },
               child: visible && controller.value.isInitialized
                   ? Align(
-                      key: ValueKey(1),
+                      key: const ValueKey(1),
                       alignment: Alignment.center,
                       child: ValueListenableBuilder(
                         valueListenable: isPlaying,
@@ -167,12 +167,12 @@ class __VidPlState extends State<_VidPl> {
                               // setState(() {});
                             },
                             child: value
-                                ? Icon(
+                                ? const Icon(
                                     Icons.pause,
                                     size: 50,
                                     color: MyColours.white,
                                   )
-                                : Icon(
+                                : const Icon(
                                     Icons.play_arrow,
                                     size: 50,
                                     color: MyColours.white,

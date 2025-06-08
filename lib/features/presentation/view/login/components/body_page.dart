@@ -72,8 +72,8 @@ class _BodyPageState extends State<_BodyPage> {
                     SizedBox(
                       height: 20.rH,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    const Padding(
+                      padding:  EdgeInsets.only(left: 8.0),
                       child: Text(
                         'Password',
                         style: TextStyle(
@@ -95,7 +95,7 @@ class _BodyPageState extends State<_BodyPage> {
                 SizedBox(
                   height: 15.rH,
                 ),
-                Padding(
+                const Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: Text(
                     'Forgot Password?',

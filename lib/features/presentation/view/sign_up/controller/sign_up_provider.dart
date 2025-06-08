@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/router/controller.dart';
+import 'package:mgym/core/router/routes.dart';
 import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
@@ -33,7 +36,7 @@ class SignUpListner extends StatelessWidget {
         if (state is SignUpLoading) {
           showDialog(
             context: context,
-            builder: (context) => Center(
+            builder: (context) =>const  Center(
               child: CircularProgressIndicator(
                 color: MyColours.onTerniary,
               ),
@@ -65,6 +68,7 @@ class SignUpListner extends StatelessWidget {
               context: context,
               lapel: 'Your account has been successfully created',
               title: '');
+          Get.toNamed(Routes.loginRoute);
         }
       },
       child: child ?? SizedBox.shrink(),

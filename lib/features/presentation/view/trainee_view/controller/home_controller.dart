@@ -41,25 +41,26 @@ class HomeControllerT {
             color: MyColours.white,
           ),
           label: ''),
-      BottomNavigationBarItem(
-          icon: SvgPicture.asset(
-            MyIcons.support,
-            width: size,
-            height: size,
-            // ignore: deprecated_member_use
-            color: MyColours.white,
-          ),
-          label: ''),
+      // BottomNavigationBarItem(
+      //     icon: SvgPicture.asset(
+      //       MyIcons.support,
+      //       width: size,
+      //       height: size,
+      //       // ignore: deprecated_member_use
+      //       color: MyColours.white,
+      //     ),
+      //     label: ''),
     ];
     _widgetList = [
       _MopileScreen(user),
       _MopileScreenVad(user),
       _MopileScreenFav(user),
       // _MopileScreenVad(user),
-      Text(
-        'Coming soon ...',
-        style: TextStyle(color: Colors.white),
-      )
+      // const Text(
+      //   'Coming soon ...',
+      //   style: TextStyle(color: Colors.white),
+      // ),
+      // const NutrationTap(),
     ];
   }
 }

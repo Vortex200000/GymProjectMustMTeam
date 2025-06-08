@@ -32,16 +32,16 @@ class _BodyPageState extends State<_BodyPage> {
             height: 40.rH,
           ),
           Container(
-            padding: EdgeInsets.symmetric(vertical: 50, horizontal: 50),
-            decoration: BoxDecoration(color: MyColours.onSecondary),
+            padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 50),
+            decoration: const BoxDecoration(color: MyColours.onSecondary),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0),
                       child: Text(
                         'Username or email',
                         style: TextStyle(
@@ -61,8 +61,8 @@ class _BodyPageState extends State<_BodyPage> {
                     SizedBox(
                       height: 20.rH,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0),
                       child: Text(
                         'Mobile Number',
                         style: TextStyle(
@@ -76,7 +76,7 @@ class _BodyPageState extends State<_BodyPage> {
                     CustomTextForm(
                       hinText: 'Phone Number',
                       boxFillColor: MyColours.white,
-                      keyBoardType: TextInputType.numberWithOptions(),
+                      keyBoardType: const TextInputType.numberWithOptions(),
                       border: 15,
                       validate: (val) {
                         if (val!.isEmpty) {
@@ -90,8 +90,8 @@ class _BodyPageState extends State<_BodyPage> {
                     SizedBox(
                       height: 20.rH,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 8.0),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 8.0),
                       child: Text(
                         'Password',
                         style: TextStyle(
@@ -111,7 +111,7 @@ class _BodyPageState extends State<_BodyPage> {
                     SizedBox(
                       height: 20.rH,
                     ),
-                    Padding(
+                    const Padding(
                       padding: const EdgeInsets.only(left: 8.0),
                       child: Text(
                         'Confirm Password',
@@ -140,7 +140,7 @@ class _BodyPageState extends State<_BodyPage> {
           SizedBox(
             height: 20.rH,
           ),
-          Text('By continuing. you agree to',
+          const Text('By continuing. you agree to',
               style: TextStyle(color: MyColours.white)),
           Text.rich(TextSpan(children: [
             TextSpan(
@@ -160,6 +160,7 @@ class _BodyPageState extends State<_BodyPage> {
             builder: (bloc, state) => CustomButton(
               onTap: () {
                 if (_formKey.currentState!.validate()) {
+                  FocusScope.of(context).unfocus();
                   log('phonee ${phone.value}');
                   phone.value = phoneController.text;
 
@@ -188,7 +189,7 @@ class _BodyPageState extends State<_BodyPage> {
             onTap: () {
               back;
             },
-            child: Text.rich(TextSpan(children: [
+            child: const Text.rich(TextSpan(children: [
               TextSpan(
                   text: "Already have an account?",
                   style: TextStyle(color: MyColours.white)),

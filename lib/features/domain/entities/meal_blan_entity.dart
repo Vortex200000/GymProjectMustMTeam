@@ -10,6 +10,7 @@ class MealBlanEntity extends Equatable {
   final double carbs;
   final String photoPath;
   final List<String> ingrediants;
+  final String id;
 
   const MealBlanEntity(
       {required this.name,
@@ -19,6 +20,7 @@ class MealBlanEntity extends Equatable {
       required this.protein,
       required this.photoPath,
       required this.fats,
+      required this.id,
       required this.carbs});
 
   MealBlanEntity cobyWith(
@@ -29,6 +31,7 @@ class MealBlanEntity extends Equatable {
           double? fats,
           double? carpps,
           String? photo,
+          String? id,
           List<String>? ingrediants) =>
       MealBlanEntity(
           ingrediants: ingrediants ?? this.ingrediants,
@@ -38,7 +41,8 @@ class MealBlanEntity extends Equatable {
           protein: protieen ?? this.protein,
           fats: fats ?? this.fats,
           carbs: carpps ?? this.carbs,
-          photoPath: photo ?? this.photoPath);
+          photoPath: photo ?? this.photoPath,
+          id: id ?? this.id);
 
   MealPlanModel get toModel => MealPlanModel(
       ingrediants: ingrediants,
@@ -48,7 +52,8 @@ class MealBlanEntity extends Equatable {
       protein: protein,
       fats: fats,
       carbs: carbs,
-      photoPath: photoPath);
+      photoPath: photoPath,
+      id: id);
   @override
   List<Object?> get props => [
         name,
