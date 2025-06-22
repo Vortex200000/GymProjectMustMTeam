@@ -7,4 +7,8 @@ class FireBaseService {
       FirebaseFirestore.instance.collection('articles_collection');
   final videoRef = FirebaseFirestore.instance.collection('videos_collection');
   final mealRef = FirebaseFirestore.instance.collection('meal_collection');
+  final completedContent =
+      FirebaseFirestore.instance.collection('completed_content');
+  final messagesCommunity =
+      FirebaseFirestore.instance.collection('messages_collection');
 }

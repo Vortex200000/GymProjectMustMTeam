@@ -7,14 +7,7 @@ import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/domain/entities/video_entity.dart';
 import 'package:mgym/features/domain/main_reposetories/user_main_repo.dart';
 import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.dart';
-
-class UserRepo extends UserBaseRepo {
-  final UserRemoteData _userRemoteData;
-  // final FireBaseAuthLocal _authLocalData;
-
-  UserRepo(this._userRemoteData);
-
-  Future<Either<Failure, T>> executeOperation<T>(
+ Future<Either<Failure, T>> executeOperation<T>(
       Future<T> Function() operation) async {
     // try {
     final result = await operation(); // Execute the provided operation
@@ -27,6 +20,13 @@ class UserRepo extends UserBaseRepo {
     // }
   }
 
+class UserRepo extends UserBaseRepo {
+  final UserRemoteData _userRemoteData;
+  // final FireBaseAuthLocal _authLocalData;
+
+  UserRepo(this._userRemoteData);
+
+ 
   @override
   Future<Either<Failure, UserEntity>> saveUserProfile(
       UserEntity account) async {

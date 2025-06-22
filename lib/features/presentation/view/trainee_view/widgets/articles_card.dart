@@ -5,7 +5,7 @@ import 'package:mgym/core/constants/colors.dart';
 import 'package:mgym/core/locator/setup_locator.dart';
 import 'package:mgym/core/size_config/size_config.dart';
 import 'package:mgym/features/domain/entities/article_entity.dart';
-import 'package:mgym/features/presentation/controllers/bloc/combonents_bloc.dart';
+import 'package:mgym/features/presentation/controllers/combonents_bloc/combonents_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 
 class Articls extends StatefulWidget {

@@ -20,7 +20,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> customMessage(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             title == null
-                ? Text(
+                ? const Text(
                     'Ooops...',
                     style: TextStyle(fontSize: 16, color: MyColours.white),
                   )
@@ -30,7 +30,7 @@ ScaffoldFeatureController<SnackBar, SnackBarClosedReason> customMessage(
             ),
             Text(
               lapel.toString(),
-              style: TextStyle(fontSize: 11, color: MyColours.white),
+              style: const TextStyle(fontSize: 11, color: MyColours.white),
             ),
           ],
         ),

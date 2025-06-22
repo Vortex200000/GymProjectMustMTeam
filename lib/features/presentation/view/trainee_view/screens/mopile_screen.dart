@@ -27,7 +27,7 @@ class _MopileScreen extends StatelessWidget {
               account: account,
             ),
           ),
-          _BodyH()
+          _BodyH(account!)
         ],
       ),
     );
@@ -69,9 +69,9 @@ class _HeaderH extends StatelessWidget {
                                     // padding: const EdgeInsets.all(10),
                                     width: SizeConfig.screenWidth * .5,
                                     height: SizeConfig.screenWidth * .3,
-                                    decoration: BoxDecoration(
+                                    decoration: const BoxDecoration(
                                         color: MyColours.onPrimary,
-                                        borderRadius: const BorderRadius.all(
+                                        borderRadius: BorderRadius.all(
                                             Radius.circular(20))),
                                     child: Column(
                                       crossAxisAlignment:
@@ -79,7 +79,7 @@ class _HeaderH extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Text(
+                                        const Text(
                                           'You Sure You Want',
                                           style:
                                               TextStyle(color: MyColours.white),
@@ -87,7 +87,7 @@ class _HeaderH extends StatelessWidget {
                                         SizedBox(
                                           height: 10.rH,
                                         ),
-                                        Text(
+                                        const Text(
                                           'To Sign Out ',
                                           style:
                                               TextStyle(color: MyColours.white),
@@ -128,9 +128,9 @@ class _HeaderH extends StatelessWidget {
                                   ),
                                 ));
                       },
-                      child: Icon(
+                      child: const Icon(
                         Icons.logout,
-                        color: const Color.fromARGB(255, 135, 112, 228),
+                        color: Color.fromARGB(255, 135, 112, 228),
                       )),
                   InkWell(
                     onTap: () {
@@ -165,8 +165,8 @@ class _HeaderH extends StatelessWidget {
 }
 
 class _BodyH extends StatefulWidget {
-  const _BodyH();
-
+  const _BodyH(this.user);
+  final UserEntity user;
   @override
   State<_BodyH> createState() => _BodyHState();
 }
@@ -177,16 +177,14 @@ class _BodyHState extends State<_BodyH> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = TabController(vsync: this, length: 4);
+    _controller = TabController(vsync: this, length: 5);
   }
 
   int currentIndx = 0;
 
-  List<Widget> widgetsList = [
+  List<Widget> widgetsList = const [
     WorkOutTap(),
     ProgressTracking(),
-    NutrationTap(),
-    SupportTap()
   ];
   @override
   Widget build(BuildContext context) {
@@ -195,15 +193,36 @@ class _BodyHState extends State<_BodyH> with SingleTickerProviderStateMixin {
       spacing: 20.rH,
       children: [
         TabBar(
-            indicator: BoxDecoration(color: Colors.transparent),
+            indicator: const BoxDecoration(color: Colors.transparent),
             dividerColor: Colors.transparent,
             controller: _controller,
             onTap: (value) {
               setState(() {
-                currentIndx = value;
+                if (value == 2) {
+                  Get.toNamed(Routes.nutration,
+                      arguments: NutrationTap(
+                        user: widget.user,
+                      ));
+                } else if (value == 1) {
+                  Get.toNamed(Routes.progress,
+                      arguments: BorgressTrackingLayout(
+                        account: widget.user,
+                      ));
+                } else if (value == 3) {
+                  Get.toNamed(Routes.community,
+                      arguments: CommunityLayout(
+                        user: widget.user,
+                      ));
+                } else if (value == 4) {
+                  Get.toNamed(
+                    Routes.training,
+                  );
+                } else {
+                  currentIndx = value;
+                }
               });
             },
-            tabs: [
+            tabs: const [
               _TabItem(MyIcons.dumble, 'Work out', MyColours.onSecondary,
                   MyColours.onSecondary, 40),
               _TabItem(MyIcons.progressTrack, 'Progress Tracking',
@@ -212,6 +231,8 @@ class _BodyHState extends State<_BodyH> with SingleTickerProviderStateMixin {
                   MyColours.onSecondary, 0),
               _TabItem(MyIcons.communityFilled1, 'Communitiy',
                   MyColours.onSecondary, MyColours.onSecondary, 0),
+              _TabItem(MyIcons.dumble, 'trainings', MyColours.onSecondary,
+                  MyColours.onSecondary, 0),
             ]),
         widgetsList[currentIndx]
       ],
@@ -221,7 +242,7 @@ class _BodyHState extends State<_BodyH> with SingleTickerProviderStateMixin {
 
 class WorkOutTap extends StatefulWidget {
   const WorkOutTap({super.key});
-
+// final UserEntity user;
   @override
   State<WorkOutTap> createState() => _WorkOutTapState();
 }
@@ -244,39 +265,40 @@ class _WorkOutTapState extends State<WorkOutTap> {
     return Column(
       spacing: 10.rH,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(horizontal: 30),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'Recommendations',
-                style:
-                    TextStyle(color: const Color.fromARGB(255, 235, 255, 55)),
+                style: TextStyle(color: Color.fromARGB(255, 235, 255, 55)),
               ),
-              InkWell(
-                onTap: () {},
-                child: Row(
-                  spacing: 10,
-                  children: [
-                    Text(
-                      'See All',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    RotatedBox(
-                      quarterTurns: 1,
-                      child: SvgPicture.asset(
-                        MyIcons.triangelFilledRounded,
-                        // ignore: deprecated_member_use
-                        color: const Color.fromARGB(255, 235, 255, 55),
-                        width: 10,
-                        height: 20,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //     // return _MopileScreenVad(account);
+              //   },
+              //   child: Row(
+              //     spacing: 10,
+              //     children: [
+              //       const Text(
+              //         'See All',
+              //         style: TextStyle(color: Colors.white),
+              //       ),
+              //       RotatedBox(
+              //         quarterTurns: 1,
+              //         child: SvgPicture.asset(
+              //           MyIcons.triangelFilledRounded,
+              //           // ignore: deprecated_member_use
+              //           color: const Color.fromARGB(255, 235, 255, 55),
+              //           width: 10,
+              //           height: 20,
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),
@@ -287,10 +309,10 @@ class _WorkOutTapState extends State<WorkOutTap> {
         //       )
         //     : const CircularProgressIndicator.adaptive(),
 
-        Videoss(),
-        WeeklyChallenge(),
+        const Videoss(),
+        const WeeklyChallenge(),
 
-        Articls(),
+        const Articls(),
 
         // CustomButton(
         //   onTap: () {
@@ -316,20 +338,6 @@ class ProgressTracking extends StatelessWidget {
     return const Center(
       child: Text(
         '2',
-        style: TextStyle(color: Colors.white),
-      ),
-    );
-  }
-}
-
-class NutrationTap extends StatelessWidget {
-  const NutrationTap({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text(
-        '3',
         style: TextStyle(color: Colors.white),
       ),
     );

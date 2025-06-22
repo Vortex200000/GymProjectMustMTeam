@@ -14,13 +14,16 @@ import 'package:mgym/core/services/nuteration_service.dart';
 import 'package:mgym/features/data/data_source/remote_data/auth_remote_data/auth_remote_data.dart';
 import 'package:mgym/features/data/data_source/remote_data/user_remote_data/user_remote_data.dart';
 import 'package:mgym/features/data/reposetories/auth_rebo.dart';
+import 'package:mgym/features/data/reposetories/nutriation_repo.dart';
 import 'package:mgym/features/data/reposetories/user_rebo.dart';
 import 'package:mgym/features/domain/main_reposetories/auth_main_repo.dart';
+import 'package:mgym/features/domain/main_reposetories/nutration_main_repo.dart';
 import 'package:mgym/features/domain/main_reposetories/user_main_repo.dart';
 import 'package:mgym/features/domain/use_cases/auth/is_user_loged_in_use_case.dart';
 import 'package:mgym/features/domain/use_cases/auth/log_email_password.dart';
 import 'package:mgym/features/domain/use_cases/auth/sign_out_use_case.dart';
 import 'package:mgym/features/domain/use_cases/auth/sign_up_use_case.dart';
+import 'package:mgym/features/domain/use_cases/nutiration/get_user_meal_use_case.dart';
 import 'package:mgym/features/domain/use_cases/user/get_all_users_use_case.dart';
 import 'package:mgym/features/domain/use_cases/user/get_current_user_info_use_case.dart';
 import 'package:mgym/features/domain/use_cases/user/gym_comp_use_cases.dart';
@@ -29,7 +32,8 @@ import 'package:mgym/features/domain/use_cases/user/update_profile_map_use_case.
 import 'package:mgym/features/domain/use_cases/user/update_user_saved_use_case.dart';
 import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
-import 'package:mgym/features/presentation/controllers/bloc/combonents_bloc.dart';
+import 'package:mgym/features/presentation/controllers/combonents_bloc/combonents_bloc.dart';
+import 'package:mgym/features/presentation/controllers/nutration_bloc/nutration_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 
 GetIt locator = GetIt.instance;
@@ -45,7 +49,11 @@ Future<void> setUp() async {
   sl.registerFactory(
     () => CombonentsBloc(sl(), sl(), sl()),
   );
-
+  sl.registerFactory(
+    () => NutrationBloc(
+      sl(),
+    ),
+  );
   //usecases
 
   sl.registerLazySingleton(
@@ -85,7 +93,9 @@ Future<void> setUp() async {
   sl.registerLazySingleton(
     () => UpdateProfileMapUseCase(sl()),
   );
-
+  sl.registerLazySingleton(
+    () => GetUserMealsGoalUseCase(sl()),
+  );
   sl.registerLazySingleton(
     () => GetCurrentUserUseCase(sl()),
   );
@@ -100,8 +110,15 @@ Future<void> setUp() async {
       sl(),
     ),
   );
+
   sl.registerLazySingleton<UserBaseRepo>(
     () => UserRepo(
+      sl(),
+    ),
+  );
+
+  sl.registerLazySingleton<NutrationMainRepo>(
+    () => NutriationRepo(
       sl(),
     ),
   );

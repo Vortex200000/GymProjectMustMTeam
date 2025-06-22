@@ -15,10 +15,13 @@ import 'package:mgym/features/domain/entities/article_entity.dart';
 import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/domain/entities/video_entity.dart';
 import 'package:mgym/features/presentation/controllers/auth_bloc/auth_bloc.dart';
-import 'package:mgym/features/presentation/controllers/bloc/combonents_bloc.dart';
+import 'package:mgym/features/presentation/controllers/combonents_bloc/combonents_bloc.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 import 'package:mgym/features/presentation/shared/custom_button/custom_button.dart';
 import 'package:mgym/features/presentation/shared/slide_transition/slide.dart';
+import 'package:mgym/features/presentation/view/community/community_layout.dart';
+import 'package:mgym/features/presentation/view/nutration/nutration_layout.dart';
+import 'package:mgym/features/presentation/view/progress_tracking/progress_tracking_layout.dart';
 
 import 'package:mgym/features/presentation/view/trainee_view/widgets/articles_card.dart';
 import 'package:mgym/features/presentation/view/trainee_view/widgets/my_video_player.dart';

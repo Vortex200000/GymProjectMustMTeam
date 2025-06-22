@@ -44,7 +44,7 @@ class Step1 extends StatelessWidget {
                   width: SizeConfig.screenWidth,
                   height: SizeConfig.screenWidth * 0.2,
                   color: MyColours.onSecondary,
-                  child: Text(
+                  child: const Text(
                     textAlign: TextAlign.center,
                     'Please select your gender by tapping\non the buttons below',
                     style: TextStyle(
@@ -66,11 +66,11 @@ class Step1 extends StatelessWidget {
                           child: Container(
                             width: SizeConfig.screenWidth * 0.4,
                             height: SizeConfig.screenWidth * 0.4,
-                            padding: EdgeInsets.all(35),
+                            padding: const EdgeInsets.all(35),
                             decoration: BoxDecoration(
                                 color: value == 'male'
                                     ? MyColours.onTerniary
-                                    : Color(0xff373737),
+                                    : const Color(0xff373737),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                     style: value == 'male'
@@ -91,7 +91,7 @@ class Step1 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Male',
                       style: TextStyle(
                           color: Colors.white,
@@ -114,11 +114,11 @@ class Step1 extends StatelessWidget {
                           child: Container(
                             width: SizeConfig.screenWidth * 0.4,
                             height: SizeConfig.screenWidth * 0.4,
-                            padding: EdgeInsets.all(35),
+                            padding: const EdgeInsets.all(35),
                             decoration: BoxDecoration(
                                 color: value == 'female'
                                     ? MyColours.onTerniary
-                                    : Color(0xff373737),
+                                    : const Color(0xff373737),
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                     style: value == 'female'
@@ -139,7 +139,7 @@ class Step1 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
+                    const Text(
                       'Female',
                       style: TextStyle(
                           color: Colors.white,
@@ -387,7 +387,7 @@ class _Step3State extends State<Step3> {
             spacing: 10.rH,
             children: [
               const SizedBox(height: 50),
-              Text(
+              const Text(
                 "What Is Your Weight?",
                 style: TextStyle(
                     color: Colors.white,
@@ -407,13 +407,13 @@ class _Step3State extends State<Step3> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Text('KG',
+                      const Text('KG',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
                       Container(color: Colors.black, width: 2, height: 40),
-                      Text('LB',
+                      const Text('LB',
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 20,
@@ -524,7 +524,7 @@ class _Step3State extends State<Step3> {
             padding: const EdgeInsets.only(top: 5),
             child: Text(
               '$index',
-              style: TextStyle(
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 14,
                   fontWeight: FontWeight.bold),
@@ -578,7 +578,7 @@ class _Step4State extends State<Step4> {
       if (_rulerController.position.isScrollingNotifier.value) {
         _hightController.animateTo(
           _rulerController.offset,
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           curve: Curves.easeInCubic,
         );
         // _scrollController.animateTo(
@@ -684,7 +684,7 @@ class _Step4State extends State<Step4> {
                       // height: 100.rH,
                       width: 100.rW,
                       height: SizeConfig.screenHeight * 0.5,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: MyColours.onSecondary,
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                       child:
@@ -776,7 +776,7 @@ class _Step6State extends State<Step6> {
     return ValueListenableBuilder(
       valueListenable: goal,
       builder: (context, value, child) => Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: MyColours.onPrimary,
         ),
         child: SingleChildScrollView(
@@ -798,7 +798,7 @@ class _Step6State extends State<Step6> {
                   spacing: 10.rH,
                   children: [
                     Container(
-                      padding: EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(20),
                       width: SizeConfig.screenWidth,
                       color: MyColours.onSecondary,
                       child: Column(
@@ -915,14 +915,17 @@ class _Step6State extends State<Step6> {
 
   Widget _buildGoalContainer(
       String val, Function(String val) onTap, String value) {
+    ValueNotifier<bool> selectd = ValueNotifier<bool>(false);
     return InkWell(
       onTap: () {
         onTap(value);
+        selectd.value = !selectd.value;
+        log(selectd.value.toString());
       },
       child: Container(
         // width: SizeConfig.screenWidth * .3,
-        padding: EdgeInsets.only(left: 20, right: 8, top: 8, bottom: 8),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.only(left: 20, right: 8, top: 8, bottom: 8),
+        decoration: const BoxDecoration(
             color: MyColours.white,
             borderRadius: BorderRadius.all(Radius.circular(50))),
         child: Row(
@@ -932,13 +935,18 @@ class _Step6State extends State<Step6> {
               val,
               style: TextStyle(color: MyColours.onPrimary, fontSize: 16.rF),
             ),
-            Container(
-              width: 50,
-              height: 50,
-              decoration: BoxDecoration(
-                  border: Border.all(color: MyColours.onPrimary, width: 2),
-                  shape: BoxShape.circle,
-                  color: Colors.white),
+            ValueListenableBuilder(
+              valueListenable: selectd,
+              builder: (context, value, child) => Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    border: Border.all(color: MyColours.onPrimary, width: 2),
+                    shape: BoxShape.circle,
+                    color: value == false
+                        ? MyColours.white
+                        : MyColours.onTerniary),
+              ),
             )
           ],
         ),
@@ -963,7 +971,7 @@ class _Step5State extends State<Step5> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: MyColours.onPrimary,
       ),
       child: SingleChildScrollView(
@@ -1050,18 +1058,30 @@ class _Step5State extends State<Step5> {
                   Center(
                     child: CustomButton(
                       onTap: () {
-                        widget.stepsController!.userEntity =
-                            widget.stepsController!.userEntity.cobyWith(
-                                fullName: nameController.text,
-                                nickName: nickNameController.text,
-                                userType: 'trainee');
-                        widget.stepsController!.nextPage();
+                        // widget.stepsController!.userEntity =
+                        //     widget.stepsController!.userEntity.cobyWith(
+                        //         fullName: nameController.text,
+                        //         nickName: nickNameController.text,
+                        //         isSaved: true,
+                        //         photoUrl: '',
+                        //         userType: 'trainee');
+                        // widget.stepsController!.nextPage();
+
+                        //            stepsController.userEntity = stepsController.userEntity.cobyWith(
+                        // // fullName: name,
+                        // // nickName: nickName,
+                        // isSaved: true,
+                        // photoUrl: state.imageUrl.fileUrl);
+
+                        // userBloc(context).add(SaveUserProfileEvent(
+                        //     widget.stepsController!.userEntity));
+                        log(' image fcheck ${widget.stepsController!.userEntity.photoUrl}');
                         userBloc(context).add(UploadImageEvent(UploadImageParam(
                             'image',
                             File(
                                 widget.stepsController!.userEntity.photoUrl))));
 
-                        log('${widget.stepsController!.userEntity.isSaved}');
+                        // log('${widget.stepsController!.userEntity.isSaved}');
                       },
                       backgroundColor: MyColours.onTerniary,
                       radius: 50,

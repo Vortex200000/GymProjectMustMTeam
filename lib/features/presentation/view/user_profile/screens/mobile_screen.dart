@@ -39,8 +39,8 @@ class _MobileScreenState extends State<_MobileScreen> {
             // TraineeProfileListenr()
           ],
         ),
-        onLoading: () => SizedBox.shrink(),
-        onError: () => Text('Error'),
+        onLoading: () => const SizedBox.shrink(),
+        onError: () => const Text('Error'),
         onotialW: () => Column(
           children: [
             SizedBox(
@@ -158,40 +158,45 @@ class _BodyState extends State<_Body> {
           spacing: 5,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Full Name',
-              style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
+              style: TextStyle(color: Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
+              hinText: 'Full Name',
               controller: controller.nameController,
             ),
-            Text(
+            const Text(
               'Email',
-              style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
+              style: TextStyle(color: Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
               readOnly: true,
+              hinText: 'Email',
               controller: controller.emailController,
             ),
-            Text(
+            const Text(
               'Mopile Number',
-              style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
+              style: TextStyle(color: Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
+              hinText: 'Mopile Number',
               controller: controller.phoneController,
             ),
-            Text(
+            const Text(
               'Weight',
-              style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
+              style: TextStyle(color: Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
+              hinText: 'Weight',
               controller: controller.weightController,
             ),
-            Text(
+            const Text(
               'Hight',
-              style: TextStyle(color: const Color.fromARGB(255, 131, 101, 252)),
+              style: TextStyle(color: Color.fromARGB(255, 131, 101, 252)),
             ),
             CustomTextForm(
+              hinText: 'Hight',
               controller: controller.hightontroller,
             ),
             SizedBox(
@@ -260,7 +265,7 @@ class _HeaderState extends State<_Header> {
         Column(
           children: [
             Container(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               width: SizeConfig.screenWidth,
               color: MyColours.onSecondary,
               key: _mainContainerKey,
@@ -285,7 +290,7 @@ class _HeaderState extends State<_Header> {
                             color: MyColours.onTerniary,
                           ),
                         ),
-                        Text(
+                        const Text(
                           'My Profile',
                           style: TextStyle(color: Colors.white),
                         )
@@ -329,7 +334,7 @@ class _HeaderState extends State<_Header> {
                         fontWeight: FontWeight.w400,
                         color: Colors.white),
                   ),
-                  SizedBox(height: 50)
+                  const SizedBox(height: 50)
                 ],
               ),
             ),
@@ -361,7 +366,7 @@ class _HeaderState extends State<_Header> {
                           children: [
                             Text(
                               '${userBloc(context).accountEntity.weight.toString()} Kg',
-                              style: TextStyle(color: MyColours.white),
+                              style: const TextStyle(color: MyColours.white),
                             ),
                             Text('Weight',
                                 style: TextStyle(color: MyColours.white))
@@ -378,9 +383,9 @@ class _HeaderState extends State<_Header> {
                         child: Column(
                           children: [
                             Text(
-                                '${userBloc(context).accountEntity.age.toString()} Kg',
-                                style: TextStyle(color: MyColours.white)),
-                            Text('Years Old',
+                                '${userBloc(context).accountEntity.age.toString()}',
+                                style: const TextStyle(color: MyColours.white)),
+                            const Text('Years Old',
                                 style: TextStyle(color: MyColours.white))
                           ],
                         ),

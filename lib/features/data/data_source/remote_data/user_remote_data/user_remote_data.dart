@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mgym/core/services/api_service.dart';
@@ -8,8 +9,10 @@ import 'package:mgym/core/services/nuteration_service.dart';
 import 'package:mgym/features/data/models/article_model.dart';
 import 'package:mgym/features/data/models/data_model.dart';
 import 'package:mgym/features/data/models/meal_plan_model.dart';
+import 'package:mgym/features/data/models/message_model.dart';
 import 'package:mgym/features/data/models/user_model.dart';
 import 'package:mgym/features/data/models/video_model.dart';
+import 'package:mgym/features/domain/entities/user_entity.dart';
 import 'package:mgym/features/domain/use_cases/user/upload_user_image_usecase.dart';
 // import 'package:firebase_storage/firebase_storage.dart';
 
@@ -31,6 +34,11 @@ abstract class UserRemoteData {
   Future<bool> updateArticleFav(bool val, String name);
   Future<List<dynamic>> getFavorites();
   Future<List<MealPlanModel>> getUserMealPlansAccToGoal();
+  Future<void> setCompletedContent(String titel, String type);
+  Stream<int> getUserProgress(String type);
+  Future<int> getTotalItems(String collection);
+  Stream<List<MessageModel>> getMessages();
+  Future<void> sendMessage(MessageModel message);
   // Future<void> updatUserStatus(bool isOnline);
   // Stream<bool> getUserStatus(String uid);
   // Stream<int?> getUserLasSeen(String uid);
@@ -154,23 +162,24 @@ class UserFireBase extends UserRemoteData {
         .toList();
   }
 
+  // }
   @override
   Future<DataModel> uploadUserImage(UploadImageParam param) async {
     final formData = FormData.fromMap({
       'file': await MultipartFile.fromFile(param.file.path,
           filename: param.file.path.split('/').last),
-      'file_type': param.fileType, // Assuming your API expects this key
+      'upload_preset': 'my_unassigned', // Assuming your API expects this key
     });
     log(formData.toString());
     final resp = await _dioServcies.sendData(SendDataParam(
-      url:
-          'https://zegbackdjango-production.up.railway.app/upload/', // Ensure this is correct
+      url: 'https://api.cloudinary.com/v1_1/dpoqqpqjv/upload',
+      // 'https://zegbackdjango-production.up.railway.app/upload/',
 
       data: formData, // Pass the formData here
     ));
 
     final jsonResponse = resp.data as Map<String, dynamic>;
-
+    log(jsonResponse.toString());
     return DataModel.fromMap(jsonResponse);
 
     // final resp = await _dioServcies.sendData(SendDataParam(
@@ -297,6 +306,60 @@ class UserFireBase extends UserRemoteData {
         .toList();
   }
 
+  @override
+  Future<void> setCompletedContent(String titel, String type) async {
+    await _fireStoreService.accountRef
+        .doc(_auth.currentUser!.uid)
+        .collection('completed_content')
+        .add({
+      'title': titel,
+      'type': type,
+      'completed_at': DateTime.now().millisecondsSinceEpoch
+    });
+  }
+
+  @override
+  Stream<int> getUserProgress(String type) {
+    return _fireStoreService.accountRef
+        .doc(_auth.currentUser!.uid)
+        .collection('completed_content')
+        .where('type', isEqualTo: type)
+        .snapshots()
+        .map((snapshot) => snapshot.docs.length);
+  }
+
+  Future<int> getCollectionCount(String collectionPath) async {
+    QuerySnapshot snapshot =
+        await FirebaseFirestore.instance.collection(collectionPath).get();
+    return snapshot.size; // Returns the number of documents in the collection
+  }
+
+  @override
+  Future<int> getTotalItems(String collection) async {
+    int articlesCount = await getCollectionCount(collection);
+    // int videosCount = await getCollectionCount('videos_collection');
+
+    // int totalItems = articlesCount + videosCount;
+
+    // log('Total Articles: $articlesCount');
+    // log('Total Videos: $videosCount');
+    // log('Total Items to Complete: $totalItems');
+    return articlesCount;
+  }
+
+  @override
+  Future<void> sendMessage(MessageModel message) async {
+    await _fireStoreService.messagesCommunity.add(message.toMap());
+  }
+
+  @override
+  Stream<List<MessageModel>> getMessages() {
+    return _fireStoreService.messagesCommunity
+        .snapshots()
+        .map((snapshot) => snapshot.docs.map((doc) {
+              return MessageModel.fromMap(doc.data());
+            }).toList());
+  }
   // meal.protein >= (protein * 0.9) && meal.protein <= (protein * 1.1) &&
   // meal.fats >= (fats * 0.9) && meal.fats <= (fats * 1.1) &&
   // meal.carbs >= (carbs * 0.9) && meal.carbs <= (carbs * 1.1)

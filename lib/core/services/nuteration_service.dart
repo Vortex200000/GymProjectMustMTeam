@@ -1,6 +1,4 @@
 class NutirationService {
-
-  
   double calculateBMR(double weight, double height, int age, String gender) {
     if (gender.toLowerCase() == 'male') {
       return 10 * weight + 6.25 * height - 5 * age + 5;
@@ -43,5 +41,3 @@ class NutirationService {
     return {'protein': protein, 'fats': fat, 'carbs': carbs};
   }
 }
-
-

@@ -3,7 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mgym/core/constants/colors.dart';
+import 'package:mgym/core/locator/setup_locator.dart';
 import 'package:mgym/core/size_config/size_config.dart';
+import 'package:mgym/features/data/data_source/remote_data/user_remote_data/user_remote_data.dart';
 import 'package:mgym/features/domain/entities/video_entity.dart';
 import 'package:mgym/features/presentation/controllers/user_bloc/bloc/user_bloc.dart';
 import 'package:mgym/features/presentation/view/trainee_view/controller/home_provide.dart';
@@ -40,13 +42,13 @@ class _VideossState extends State<Videoss> {
                   child: state is GetAllVideosLoaded
                       ? _VidoesList(entityList: state.videos)
                       : state is GetAllVideosFailure
-                          ? Text('Error')
+                          ? const Text('Error')
                           : const SizedBox.shrink(),
                 ),
               );
             },
           ),
-          AddVidFavListener()
+          const AddVidFavListener()
         ],
       ),
     );
@@ -373,7 +375,7 @@ class VideoCardState extends State<VideoCard> {
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
-        firstChild: SizedBox.shrink(),
+        firstChild: const SizedBox.shrink(),
         secondChild: Padding(
             padding: EdgeInsets.only(right: widget.isLast ? 0 : 20),
             child: Stack(
@@ -384,7 +386,7 @@ class VideoCardState extends State<VideoCard> {
                     Stack(
                       children: [
                         ClipRRect(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
                           // clipBehavior: Clip.antiAlias,
@@ -401,8 +403,9 @@ class VideoCardState extends State<VideoCard> {
                       key: _key,
                       // width: 150.rW,
                       // height: 50.rH,
-                      padding: EdgeInsets.only(left: 10, bottom: 10, right: 10),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.only(
+                          left: 10, bottom: 10, right: 10),
+                      decoration: const BoxDecoration(
                           color: MyColours.onPrimary,
                           border: Border(
                             left: BorderSide(color: Colors.white, width: 1),
@@ -418,7 +421,7 @@ class VideoCardState extends State<VideoCard> {
                         children: [
                           Text(
                             widget.lapel ?? 'Squat Exercise',
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: MyColours.onTerniary, fontSize: 12),
                           ),
                           Row(
@@ -429,13 +432,13 @@ class VideoCardState extends State<VideoCard> {
                               Row(
                                 spacing: 2,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.watch,
                                     color: MyColours.onSecondary,
                                     size: 20,
                                   ),
                                   AnimatedSwitcher(
-                                    duration: Duration(milliseconds: 200),
+                                    duration: const Duration(milliseconds: 200),
                                     transitionBuilder: (child, animation) {
                                       return ScaleTransition(
                                         scale: animation,
@@ -445,23 +448,23 @@ class VideoCardState extends State<VideoCard> {
                                     child: videoDuration != null
                                         ? Text(
                                             '${videoDuration?.inMinutes ?? 00} minutes',
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: MyColours.white),
                                           )
-                                        : SizedBox.shrink(),
+                                        : const SizedBox.shrink(),
                                   ),
                                 ],
                               ),
                               Row(
                                 spacing: 2,
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.fireplace,
                                     color: MyColours.onSecondary,
                                     size: 20,
                                   ),
                                   Text(
-                                    "${widget.kal.toString()} kal",
+                                    "${widget.kal.toString()} Cal",
                                     maxLines: 2,
                                     style: TextStyle(
                                         overflow: TextOverflow.ellipsis,
@@ -485,11 +488,13 @@ class VideoCardState extends State<VideoCard> {
                       width: 20.rH,
                       height: 20.rH,
                       padding: const EdgeInsets.all(1),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: const Color.fromARGB(255, 154, 129, 253)),
+                          color: Color.fromARGB(255, 154, 129, 253)),
                       child: InkWell(
                         onTap: () {
+                          locator<UserRemoteData>()
+                              .setCompletedContent(widget.lapel ?? '', 'video');
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -499,7 +504,7 @@ class VideoCardState extends State<VideoCard> {
                                         'https://res.cloudinary.com/dpoqqpqjv/video/upload/v1741033538/Exercise_Tutorial_-_Squat_ujl1sa.mp4'),
                               ));
                         },
-                        child: Icon(
+                        child: const Icon(
                           Icons.play_arrow,
                           color: Colors.white,
                           size: 15,
@@ -524,7 +529,7 @@ class VideoCardState extends State<VideoCard> {
         crossFadeState: videoDuration != null
             ? CrossFadeState.showSecond
             : CrossFadeState.showFirst,
-        duration: Duration(milliseconds: 200));
+        duration: const Duration(milliseconds: 200));
 
     // AnimatedSwitcher(
     //   duration: Duration(milliseconds: 200),

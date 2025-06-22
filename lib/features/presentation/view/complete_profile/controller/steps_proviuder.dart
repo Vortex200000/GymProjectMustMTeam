@@ -29,8 +29,8 @@ class ProfileBuListner extends StatelessWidget {
             showDialog(
               barrierDismissible: false,
               context: context,
-              builder: (context) => Center(
-                child: const CircularProgressIndicator(),
+              builder: (context) => const Center(
+                child: CircularProgressIndicator(),
               ),
             );
             // Routes.customLoadin.toPage();

@@ -23,7 +23,7 @@ class SignUpLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.black,
-      child: SafeArea(
+      child: const SafeArea(
           child: Scaffold(
         backgroundColor: MyColours.onPrimary,
         body: AdaptivLayoutWidget(
